@@ -21,6 +21,7 @@ for i in range(4):
     command += "-equivol "
     command += "-nr_layers 5 "
     command += "-curvature "
+    command += "-streamlines "
     print(command)
     subprocess.run(command, shell=True)
 
