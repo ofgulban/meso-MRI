@@ -7,37 +7,42 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
 # Measurement nifti
-MEASURE = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/04_segmentation/sub-01_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
+MEASURE = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
 
 # Depth files
 DEPTHS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/05_layers_columns/HG_RH/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_HG_RH_v04_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/05_layers_columns/HG_LH/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_HG_LH_v04_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/05_layers_columns/CS_RH/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_CS_RH_v04_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/05_layers_columns/CS_LH/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_CS_LH_v04_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_HG_RH_v02_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_HG_LH_v02_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_CS_RH_v02_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_CS_LH_v02_metric_equivol.nii.gz",
     ]
 
 # Columns
 CHUNKS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/06_multilaterate/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_HG_RH_v04_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/06_multilaterate/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_HG_LH_v04_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/06_multilaterate/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_CS_RH_v04_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/06_multilaterate/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_CS_LH_v04_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/sub-05_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/sub-05_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/sub-05_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/sub-05_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
     ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
-OUT_DIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/07_plots"
-SUBJ_ID = "sub-01"
+OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/plots"
+SUBJ_ID = "sub-05"
 FIGURE_TAG = "depth"
 
 RANGE = (20, 50)
 DPI = 300
 VOXEL_VOLUME = 0.173611 * 0.173611 * 0.175  # mm
-VOXEL_VOLUME /= 1000  # cm
+VOXEL_VOLUME /= 1000  # mm^3 to cm^3
 
 # =============================================================================
+# Output directory
+if not os.path.exists(OUTDIR):
+    os.makedirs(OUTDIR)
+    print("  Output directory: {}\n".format(OUTDIR))
+
 # Prepare figure
 fig, ax = plt.subplots(2, 2,  figsize=(1920*2/DPI, 1080*2/DPI), dpi=DPI)
 ax = ax.ravel()
@@ -100,7 +105,7 @@ for i in range(len(CHUNKS)):
     ax[i].legend(loc = "upper left", frameon=False)
 
 plt.tight_layout()
-plt.savefig(os.path.join(OUT_DIR, "{}_{}".format(SUBJ_ID, FIGURE_TAG)))
+plt.savefig(os.path.join(OUTDIR, "{}_{}".format(SUBJ_ID, FIGURE_TAG)))
 # plt.show()
 
-print("Finished.")
+print("Finished.\n")
