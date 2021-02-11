@@ -7,29 +7,29 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
 # Measurement nifti
-MEASURE = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T2s/12_T2star/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
+MEASURE = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/04_segmentation/sub-01_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
 
 # Depth files
 DEPTHS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers_columns/HG_RH/sub-05_ses-T2s_MP2RAGE_uni_segm_rim_reg_v06_rim_HG_RH_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers_columns/HG_LH/sub-05_ses-T2s_MP2RAGE_uni_segm_rim_reg_v06_rim_HG_LH_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers_columns/CS_RH/sub-05_ses-T2s_MP2RAGE_uni_segm_rim_reg_v06_rim_CS_RH_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers_columns/CS_LH/sub-05_ses-T2s_MP2RAGE_uni_segm_rim_reg_v06_rim_CS_LH_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/05_layers_columns/HG_RH/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_HG_RH_v04_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/05_layers_columns/HG_LH/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_HG_LH_v04_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/05_layers_columns/CS_RH/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_CS_RH_v04_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/05_layers_columns/CS_LH/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_CS_LH_v04_metric_equivol.nii.gz",
     ]
 
 # Columns
 CHUNKS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers_columns/HG_RH/test_cells.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers_columns/HG_LH/test_cells.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers_columns/CS_RH/test_cells.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers_columns/CS_LH/test_cells.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/06_multilaterate/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_HG_RH_v04_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/06_multilaterate/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_HG_LH_v04_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/06_multilaterate/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_CS_RH_v04_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/06_multilaterate/sub-01_ses-T2s_MP2RAGE_uni_segm_rim_reg_CS_LH_v04_multilaterate_perimeter_chunk.nii.gz",
     ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
-OUT_DIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers_columns/"
-SUBJ_ID = "sub-05"
+OUT_DIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1_wholebrain/07_plots"
+SUBJ_ID = "sub-01"
 FIGURE_TAG = "depth"
 
 RANGE = (20, 50)
