@@ -1,4 +1,4 @@
-"""Plot T2star vs B0 angular difference."""
+"""Plot T2star vs cortical thickness."""
 
 import os
 import numpy as np
@@ -6,30 +6,30 @@ import nibabel as nb
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
-METRIC_Y = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/00_segmentation/sub-03_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
+METRIC_Y = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/00_segmentation/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
 
 METRIC_X = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/01_layers/sub-03_ses-T2s_segm_rim_HG_RH_v02_curvature.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/01_layers/sub-03_ses-T2s_segm_rim_HG_LH_v02_curvature.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/01_layers/sub-03_ses-T2s_segm_rim_CS_RH_v02_curvature.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/01_layers/sub-03_ses-T2s_segm_rim_CS_LH_v02_curvature.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_HG_RH_v02_thickness.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_HG_LH_v02_thickness.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_CS_RH_v02_thickness.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_CS_LH_v02_thickness.nii.gz",
     ]
 
 CHUNKS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/02_multilaterate/sub-03_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/02_multilaterate/sub-03_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/02_multilaterate/sub-03_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/02_multilaterate/sub-03_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
     ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
-OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/plots/03_curvature"
-SUBJ_ID = "sub-03"
-FIGURE_TAG = "curvature"
+OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/plots/04_thickness"
+SUBJ_ID = "sub-05"
+FIGURE_TAG = "thickness"
 
-RANGE_X = (-1, 1)
+RANGE_X = (1.5, 3.5)
 RANGE_Y = (20, 50)
 DPI = 300
 VOXEL_VOLUME = 0.173611 * 0.173611 * 0.175  # mm
@@ -78,9 +78,9 @@ for i in range(len(CHUNKS)):
                multialignment="center")
     ax[i].set_xlim(RANGE_X)
     ax[i].set_ylim(RANGE_Y)
-    ax[i].set_xlabel(r"Curvature"
+    ax[i].set_xlabel(r"Cortical thickness"
                      "\n"
-                     r"(-1: Sulcal fundi, +1: Gyral crown)",
+                     r" ",
                      color="gray")
     ax[i].set_ylabel(r"T$_2^*$ (ms)")
     ax[i].set_title(r"{}, Volume = {:.1f} cm$^3$".format(TAGS[i], volume),
@@ -92,7 +92,7 @@ for i in range(len(CHUNKS)):
     line_y = np.linspace(RANGE_Y[0], RANGE_Y[1], 10)
     line_x = line_y * 0 + indvar_avg
     ax[i].plot(line_x, line_y, '-', linewidth=1.5, color='dodgerblue',
-               label=r"Mean curv. = {:.2f}".format(indvar_avg))
+               label=r"Mean thic. = {:.2f}".format(indvar_avg))
 
     # Plot mean line for dependent variable (y axis)
     depvar_avg = np.mean(depvar)

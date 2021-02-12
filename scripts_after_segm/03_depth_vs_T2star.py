@@ -34,6 +34,7 @@ RANGE_Y = (20, 50)
 DPI = 300
 VOXEL_VOLUME = 0.173611 * 0.173611 * 0.175  # mm
 VOXEL_VOLUME /= 1000  # mm^3 to cm^3
+RANGE_CBAR = (0, 100)
 
 # =============================================================================
 # Output directory
@@ -70,7 +71,7 @@ for i in range(len(CHUNKS)):
     # -------------------------------------------------------------------------
     # 2D histograms
     panel = ax[i].hist2d(indvar, depvar, bins=(200, 200), cmap=plt.cm.Greys,
-                         vmin=0, vmax=100)
+                         vmin=RANGE_CBAR[0], vmax=RANGE_CBAR[1])
 
     cb = fig.colorbar(panel[3], ax=ax[i], pad=0.03, shrink=0.65)
     cb.ax.text(0, -25, "Nr.\nvoxels", rotation=0, color="dimgray",
