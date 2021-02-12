@@ -6,27 +6,27 @@ import nibabel as nb
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
-METRIC_Y = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/00_segmentation/sub-02_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
+METRIC_Y = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/00_segmentation/sub-03_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
 
 METRIC_X = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/01_layers/sub-02_ses-T2s_segm_rim_HG_RH_v02_curvature.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/01_layers/sub-02_ses-T2s_segm_rim_HG_LH_v02_curvature.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/01_layers/sub-02_ses-T2s_segm_rim_CS_RH_v02_curvature.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/01_layers/sub-02_ses-T2s_segm_rim_CS_LH_v02_curvature.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/01_layers/sub-03_ses-T2s_segm_rim_HG_RH_v02_curvature.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/01_layers/sub-03_ses-T2s_segm_rim_HG_LH_v02_curvature.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/01_layers/sub-03_ses-T2s_segm_rim_CS_RH_v02_curvature.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/01_layers/sub-03_ses-T2s_segm_rim_CS_LH_v02_curvature.nii.gz",
     ]
 
 CHUNKS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/02_multilaterate/sub-02_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/02_multilaterate/sub-02_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/02_multilaterate/sub-02_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/02_multilaterate/sub-02_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/02_multilaterate/sub-03_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/02_multilaterate/sub-03_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/02_multilaterate/sub-03_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-03/segmentation/02_multilaterate/sub-03_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
     ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
 OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/plots/03_curvature"
-SUBJ_ID = "sub-02"
+SUBJ_ID = "sub-03"
 FIGURE_TAG = "curvature"
 
 RANGE_X = (-1, 1)
@@ -79,19 +79,19 @@ for i in range(len(CHUNKS)):
     ax[i].set_ylim(RANGE_Y)
     ax[i].set_xlabel(r"Curvature"
                      "\n"
-                     r"(-1: Sulcus, +1: Gyrus)",
+                     r"(-1: Sulcal fundi, +1: Gyral crown)",
                      color="gray")
     ax[i].set_ylabel(r"T$_2^*$ (ms)")
     ax[i].set_title(r"{}, Volume = {:.1f} cm$^3$".format(TAGS[i], volume),
                     color="goldenrod")
 
     # -------------------------------------------------------------------------
-    # # Plot mean line for independent variable (x axis)
-    # indvar_avg = np.mean(indvar)
-    # line_y = np.linspace(RANGE_Y[0], RANGE_Y[1], 10)
-    # line_x = line_y * 0 + indvar_avg
-    # ax[i].plot(line_x, line_y, '-', linewidth=1.5, color='dodgerblue',
-    #            label=r"Mean ang. dif. = {:.0f}".format(indvar_avg))
+    # Plot mean line for independent variable (x axis)
+    indvar_avg = np.mean(indvar)
+    line_y = np.linspace(RANGE_Y[0], RANGE_Y[1], 10)
+    line_x = line_y * 0 + indvar_avg
+    ax[i].plot(line_x, line_y, '-', linewidth=1.5, color='dodgerblue',
+               label=r"Mean curv. = {:.2f}".format(indvar_avg))
 
     # Plot mean line for dependent variable (y axis)
     depvar_avg = np.mean(depvar)
