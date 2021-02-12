@@ -6,28 +6,28 @@ import nibabel as nb
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
-METRIC_X = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
+METRIC_X = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/T2s/13_T2star_filter/sub-04_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_CURED_n10_s0pt5_r1pt0_g1.nii.gz"
 
 METRIC_Y = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_HG_RH_v02_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_HG_LH_v02_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_CS_RH_v02_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_CS_LH_v02_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/segmentation/01_layers/sub-04_ses-T2s_segm_rim_HG_RH_v02_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/segmentation/01_layers/sub-04_ses-T2s_segm_rim_HG_LH_v02_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/segmentation/01_layers/sub-04_ses-T2s_segm_rim_CS_RH_v02_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/segmentation/01_layers/sub-04_ses-T2s_segm_rim_CS_LH_v02_metric_equivol.nii.gz",
     ]
 
 CHUNKS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/sub-05_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/sub-05_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/sub-05_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/sub-05_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/segmentation/02_multilaterate/sub-04_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/segmentation/02_multilaterate/sub-04_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/segmentation/02_multilaterate/sub-04_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/segmentation/02_multilaterate/sub-04_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
     ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
 OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/plots/01_depth"
-SUBJ_ID = "sub-05"
-FIGURE_TAG = "depth"
+SUBJ_ID = "sub-04"
+FIGURE_TAG = "depth_smooth2"
 
 RANGE_X = (0, 1)
 RANGE_Y = (20, 50)
