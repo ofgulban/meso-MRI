@@ -28,8 +28,8 @@ CHUNKS = [
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
-OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/plots"
-SUBJ_ID = "sub-05_smooth"
+OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/plots/01_depth"
+SUBJ_ID = "sub-05"
 FIGURE_TAG = "depth"
 
 RANGE = (20, 50)
