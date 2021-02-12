@@ -27,6 +27,7 @@ IMAGES = [
 for img in IMAGES:
     command = "segmentator_filters "
     command += "{} ".format(img)
+    command += "--smoothing CURED "
     command += "--noise_scale {} ".format(0.5)
     command += "--feature_scale {} ".format(1.0)
     command += "--nr_iterations 5 "
