@@ -1,4 +1,4 @@
-"""Simple layer profile plots"""
+"""Plot T2star vs B0 angular difference."""
 
 import os
 import numpy as np
@@ -6,34 +6,34 @@ import nibabel as nb
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
-METRIC_X = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
+METRIC_Y = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/00_segmentation/sub-02_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
 
-METRIC_Y = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_HG_RH_v02_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_HG_LH_v02_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_CS_RH_v02_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_CS_LH_v02_metric_equivol.nii.gz",
+METRIC_X = [
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/01_layers/sub-02_ses-T2s_segm_rim_HG_RH_v02_curvature.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/01_layers/sub-02_ses-T2s_segm_rim_HG_LH_v02_curvature.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/01_layers/sub-02_ses-T2s_segm_rim_CS_RH_v02_curvature.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/01_layers/sub-02_ses-T2s_segm_rim_CS_LH_v02_curvature.nii.gz",
     ]
 
 CHUNKS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/sub-05_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/sub-05_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/sub-05_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/sub-05_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/02_multilaterate/sub-02_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/02_multilaterate/sub-02_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/02_multilaterate/sub-02_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-02/segmentation/02_multilaterate/sub-02_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
     ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
-OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/plots/01_depth"
-SUBJ_ID = "sub-05"
-FIGURE_TAG = "depth"
+OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/plots/03_curvature"
+SUBJ_ID = "sub-02"
+FIGURE_TAG = "curvature"
 
-RANGE_X = (0, 1)
+RANGE_X = (-1, 1)
 RANGE_Y = (20, 50)
 DPI = 300
 VOXEL_VOLUME = 0.173611 * 0.173611 * 0.175  # mm
-VOXEL_VOLUME /= 1000  # mm^3 to cm^3
+VOXEL_VOLUME /= 1000  # cm
 
 # =============================================================================
 # Output directory
@@ -56,11 +56,11 @@ for i in range(len(CHUNKS)):
     idx_cells = idx_cells[1:]  # Remove columns with index 0
 
     # Load measurement
-    nii_measure = nb.load(METRIC_X)
-    depvar = np.asarray(nii_measure.dataobj)[idx]
+    nii_depvar = nb.load(METRIC_Y)
+    depvar = np.asarray(nii_depvar.dataobj)[idx]
 
-    # Load normalized depth metric
-    nii_indvar = nb.load(METRIC_Y[i])
+    # Load metric
+    nii_indvar = nb.load(METRIC_X[i])
     indvar = np.asarray(nii_indvar.dataobj)[idx]
 
     # Compute chunk volume
@@ -77,9 +77,9 @@ for i in range(len(CHUNKS)):
                multialignment="center")
     ax[i].set_xlim(RANGE_X)
     ax[i].set_ylim(RANGE_Y)
-    ax[i].set_xlabel("Normalized cortical depth (equi-volume)"
+    ax[i].set_xlabel(r"Curvature"
                      "\n"
-                     "0 = white matter border",
+                     r"(-1: Sulcus, +1: Gyrus)",
                      color="gray")
     ax[i].set_ylabel(r"T$_2^*$ (ms)")
     ax[i].set_title(r"{}, Volume = {:.1f} cm$^3$".format(TAGS[i], volume),
@@ -91,7 +91,7 @@ for i in range(len(CHUNKS)):
     # line_y = np.linspace(RANGE_Y[0], RANGE_Y[1], 10)
     # line_x = line_y * 0 + indvar_avg
     # ax[i].plot(line_x, line_y, '-', linewidth=1.5, color='dodgerblue',
-    #            label=r"Mean depth = {:.1f}°".format(indvar_avg))
+    #            label=r"Mean ang. dif. = {:.0f}".format(indvar_avg))
 
     # Plot mean line for dependent variable (y axis)
     depvar_avg = np.mean(depvar)
@@ -100,10 +100,11 @@ for i in range(len(CHUNKS)):
     ax[i].plot(line_x, line_y, '-', linewidth=1.5, color='firebrick',
                label=r"Mean T$_2^*$ = {:.2f} ms".format(depvar_avg))
 
+    # Draw legend
     ax[i].legend(loc = "upper left", frameon=False)
 
 plt.tight_layout()
 plt.savefig(os.path.join(OUTDIR, "{}_{}".format(SUBJ_ID, FIGURE_TAG)))
 # plt.show()
 
-print("Finished.\n")
+print("Finished.")
