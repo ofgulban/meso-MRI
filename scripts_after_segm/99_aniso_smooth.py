@@ -24,12 +24,12 @@ IMAGES = [
 #     os.makedirs(OUTDIR)
 #     print("  Output directory: {}\n".format(OUTDIR))
 
-for i in range(IMAGES):
+for img in IMAGES:
     command = "segmentator_filters "
-    command += "-{} ".format(i)
+    command += "{} ".format(img)
     command += "--noise_scale {} ".format(0.5)
     command += "--feature_scale {} ".format(1.0)
-    comamnd += "--nr_iterations 5 "
+    command += "--nr_iterations 5 "
     command += "--save_every 1 "
     print(command)
     subprocess.run(command, shell=True)
