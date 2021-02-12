@@ -1,4 +1,4 @@
-"""Simple layer profile plots"""
+"""Plot T2star vs B0 angular difference."""
 
 import os
 import numpy as np
@@ -7,30 +7,30 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
 # Measurement nifti
-MEASURE = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/T2s/12_T2star/sub-04_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
+MEASURE = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/sub-01_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
 
 # Depth files
 ANGDIF = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/T1_wholebrain/99_B0_angles/sub-04_ses-T2s_MP2RAGE_uni_segm_rim_reg_v16_rim_B0angdif_layer_smooth_sigma2_iter4.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/T1_wholebrain/99_B0_angles/sub-04_ses-T2s_MP2RAGE_uni_segm_rim_reg_v16_rim_B0angdif_layer_smooth_sigma2_iter4.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/T1_wholebrain/99_B0_angles/sub-04_ses-T2s_MP2RAGE_uni_segm_rim_reg_v16_rim_B0angdif_layer_smooth_sigma2_iter4.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/T1_wholebrain/99_B0_angles/sub-04_ses-T2s_MP2RAGE_uni_segm_rim_reg_v16_rim_B0angdif_layer_smooth_sigma2_iter4.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_B0_angles/sub-01_ses-T2s_segm_rim_HG_RH_v02_streamline_vectors_B0angdif.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_B0_angles/sub-01_ses-T2s_segm_rim_HG_LH_v02_streamline_vectors_B0angdif.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_B0_angles/sub-01_ses-T2s_segm_rim_CS_RH_v02_streamline_vectors_B0angdif.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_B0_angles/sub-01_ses-T2s_segm_rim_CS_LH_v02_streamline_vectors_B0angdif.nii.gz",
     ]
 
 # Columns
 CHUNKS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/T1_wholebrain/05_layers_columns/HG_RH/test_cells.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/T1_wholebrain/05_layers_columns/HG_LH/test_cells.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/T1_wholebrain/05_layers_columns/CS_RH/test_cells.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/T1_wholebrain/05_layers_columns/CS_LH/test_cells.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_multilaterate/sub-01_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_multilaterate/sub-01_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_multilaterate/sub-01_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_multilaterate/sub-01_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
     ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
-OUT_DIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-04/T1_wholebrain/05_layers_columns/"
-SUBJ_ID = "sub-04"
-FIGURE_TAG = "angdif"
+OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/plots/02_B0angdiff"
+SUBJ_ID = "sub-01"
+FIGURE_TAG = "B0angdif"
 
 RANGE = (20, 50)
 DPI = 300
@@ -38,6 +38,11 @@ VOXEL_VOLUME = 0.173611 * 0.173611 * 0.175  # mm
 VOXEL_VOLUME /= 1000  # cm
 
 # =============================================================================
+# Output directory
+if not os.path.exists(OUTDIR):
+    os.makedirs(OUTDIR)
+    print("  Output directory: {}\n".format(OUTDIR))
+
 # Prepare figure
 fig, ax = plt.subplots(2, 2,  figsize=(1920*2/DPI, 1080*2/DPI), dpi=DPI)
 ax = ax.ravel()
@@ -101,7 +106,7 @@ for i in range(len(CHUNKS)):
     ax[i].legend(loc = "upper left", frameon=False)
 
 plt.tight_layout()
-plt.savefig(os.path.join(OUT_DIR, "{}_{}".format(SUBJ_ID, FIGURE_TAG)))
+plt.savefig(os.path.join(OUTDIR, "{}_{}".format(SUBJ_ID, FIGURE_TAG)))
 # plt.show()
 
 print("Finished.")

@@ -1,21 +1,21 @@
-"""B0 angle related stuff"""
+"""Compute anglular difference between streamlines and B0 vector."""
 
 import os
 import numpy as np
 import nibabel as nb
 
 # Scalar file
-REF = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
+REF = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/sub-01_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
 
 # Vector file
 VECTORS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_HG_RH_v02_streamline_vectors.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_HG_LH_v02_streamline_vectors.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_CS_RH_v02_streamline_vectors.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_CS_LH_v02_streamline_vectors.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_layers/sub-01_ses-T2s_segm_rim_HG_RH_v02_streamline_vectors.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_layers/sub-01_ses-T2s_segm_rim_HG_LH_v02_streamline_vectors.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_layers/sub-01_ses-T2s_segm_rim_CS_RH_v02_streamline_vectors.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_layers/sub-01_ses-T2s_segm_rim_CS_LH_v02_streamline_vectors.nii.gz",
     ]
 
-OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/07_B0_angles"
+OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_B0_angles"
 
 # =============================================================================
 # Output directory
