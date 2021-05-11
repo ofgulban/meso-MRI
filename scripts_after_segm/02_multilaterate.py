@@ -4,20 +4,20 @@ import os
 import subprocess
 
 RIMS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation/HG_RH/sub-05_ses-T2s_segm_rim_HG_RH_v02.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation/HG_LH/sub-05_ses-T2s_segm_rim_HG_LH_v02.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation/CS_RH/sub-05_ses-T2s_segm_rim_CS_RH_v02.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation/CS_LH/sub-05_ses-T2s_segm_rim_CS_LH_v02.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep/sub-01_ses-T2s_segm_rim_HG_RH_v02_borderized.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep/sub-01_ses-T2s_segm_rim_HG_LH_v02_borderized.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep/sub-01_ses-T2s_segm_rim_CS_RH_v02_borderized.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep/sub-01_ses-T2s_segm_rim_CS_LH_v02_borderized.nii.gz",
 ]
 
 CENTROIDS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_HG_RH_v02_midGM_equidist_centroid.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_HG_LH_v02_midGM_equidist_centroid.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_CS_RH_v02_midGM_equidist_centroid.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers/sub-05_ses-T2s_segm_rim_CS_LH_v02_midGM_equidist_centroid.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers/sub-01_ses-T2s_segm_rim_HG_RH_v02_borderized_midGM_equidist_centroid.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers/sub-01_ses-T2s_segm_rim_HG_LH_v02_borderized_midGM_equidist_centroid.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers/sub-01_ses-T2s_segm_rim_CS_RH_v02_borderized_midGM_equidist_centroid.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers/sub-01_ses-T2s_segm_rim_CS_LH_v02_borderized_midGM_equidist_centroid.nii.gz",
 ]
 
-OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/06_multilaterate/"
+OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate"
 
 # -----------------------------------------------------------------------------
 # Output directory
@@ -39,6 +39,7 @@ for i in range(len(RIMS)):
     command += "-rim {} ".format(rim)
     command += "-control_points {} ".format(centroid)
     command += "-radius 15 "
+    command += "-incl_borders "
     command += "-output {} ".format(outname)
     print(command)
     subprocess.run(command, shell=True)

@@ -15,10 +15,10 @@ METRIC_X = [
     ]
 
 METRIC_Y = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_HG_RH_v02_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_HG_LH_v02_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_CS_RH_v02_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_CS_LH_v02_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_HG_RH_v02_borderized_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_HG_LH_v02_borderized_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_CS_RH_v02_borderized_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_CS_LH_v02_borderized_metric_equivol.nii.gz",
     ]
 
 CHUNKS = [

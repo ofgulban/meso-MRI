@@ -4,13 +4,13 @@ import os
 import subprocess
 
 RIMS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation/HG_RH/sub-05_ses-T2s_segm_rim_HG_RH_v02.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation/HG_LH/sub-05_ses-T2s_segm_rim_HG_LH_v02.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation/CS_RH/sub-05_ses-T2s_segm_rim_CS_RH_v02.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation/CS_LH/sub-05_ses-T2s_segm_rim_CS_LH_v02.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep/sub-01_ses-T2s_segm_rim_HG_RH_v02_borderized.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep/sub-01_ses-T2s_segm_rim_HG_LH_v02_borderized.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep/sub-01_ses-T2s_segm_rim_CS_RH_v02_borderized.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep/sub-01_ses-T2s_segm_rim_CS_LH_v02_borderized.nii.gz",
 ]
 
-OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/05_layers"
+OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers"
 
 # -----------------------------------------------------------------------------
 # Output directory
@@ -34,6 +34,7 @@ for i in range(4):
     command += "-curvature "
     command += "-streamlines "
     command += "-iter_smooth 100 "
+    command += "-incl_borders "
     command += "-output {} ".format(outname)
     print(command)
     subprocess.run(command, shell=True)

@@ -4,34 +4,34 @@ import os
 import subprocess
 
 VALUES = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/00_segmentation/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/00_segmentation/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/00_segmentation/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/00_segmentation/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/sub-01_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/sub-01_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/sub-01_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/sub-01_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
 ]
 
 COORD_UV = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_HG_RH_v02_multilaterate_UV_coordinates.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_HG_LH_v02_multilaterate_UV_coordinates.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_CS_RH_v02_multilaterate_UV_coordinates.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_CS_LH_v02_multilaterate_UV_coordinates.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate/sub-01_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_UV_coordinates.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate/sub-01_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_UV_coordinates.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate/sub-01_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_UV_coordinates.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate/sub-01_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_UV_coordinates.nii.gz",
 ]
 
 COORD_D = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_HG_RH_v02_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_HG_LH_v02_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_CS_RH_v02_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_CS_LH_v02_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers/sub-01_ses-T2s_segm_rim_HG_RH_v02_borderized_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers/sub-01_ses-T2s_segm_rim_HG_LH_v02_borderized_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers/sub-01_ses-T2s_segm_rim_CS_RH_v02_borderized_metric_equivol.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers/sub-01_ses-T2s_segm_rim_CS_LH_v02_borderized_metric_equivol.nii.gz",
 ]
 
 DOMAIN = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate/sub-01_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate/sub-01_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate/sub-01_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate/sub-01_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
 ]
 
-OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/99_patch_flatten"
+OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/99_patch_flatten"
 
 # -----------------------------------------------------------------------------
 # Output directory
@@ -58,7 +58,7 @@ for i in range(len(VALUES)):
     command += "-domain {} ".format(domain)
     command += "-bins_u 500 "
     command += "-bins_v 500 "
-    command += "-bins_d 1 "
+    command += "-bins_d 100 "
     command += "-voronoi "
     command += "-output {} ".format(outname)
     print(command)
