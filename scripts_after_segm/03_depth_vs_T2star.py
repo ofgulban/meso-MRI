@@ -7,32 +7,29 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
 METRIC_X = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T2s/13_nonlinaniso_smooth/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_CURED_n1_s0pt5_r1pt0_g1.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T2s/13_nonlinaniso_smooth/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_CURED_n2_s0pt5_r1pt0_g1.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T2s/13_nonlinaniso_smooth/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_CURED_n3_s0pt5_r1pt0_g1.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T2s/13_nonlinaniso_smooth/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_CURED_n4_s0pt5_r1pt0_g1.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/T2s/13_nonlinaniso_smooth/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_CURED_n5_s0pt5_r1pt0_g1.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/T2s/12_T2star/sub-01_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
     ]
 
 METRIC_Y = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_HG_RH_v02_borderized_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_HG_LH_v02_borderized_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_CS_RH_v02_borderized_metric_equivol.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_layers/sub-05_ses-T2s_segm_rim_CS_LH_v02_borderized_metric_equivol.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers/sub-01_ses-T2s_segm_rim_HG_RH_v02_borderized_metric_equivol.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers/sub-01_ses-T2s_segm_rim_HG_LH_v02_borderized_metric_equivol.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers/sub-01_ses-T2s_segm_rim_CS_RH_v02_borderized_metric_equivol.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers/sub-01_ses-T2s_segm_rim_CS_LH_v02_borderized_metric_equivol.nii.gz",
     ]
 
 CHUNKS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_multilaterate/sub-05_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate/sub-01_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate/sub-01_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate/sub-01_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate/sub-01_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
     ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
-OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/plots/01_depth"
-SUBJ_ID = "sub-05"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/01_depth"
+SUBJ_ID = "sub-01"
+FIGURE_TAG = "depth"
 
 RANGE_X = (0, 1)
 RANGE_Y = (20, 50)
@@ -48,9 +45,6 @@ if not os.path.exists(OUTDIR):
     print("  Output directory: {}\n".format(OUTDIR))
 
 for j in range(len(METRIC_X)):
-
-    FIGURE_TAG = "depth_smooth" + str(j + 1)
-
     # Prepare figure
     fig, ax = plt.subplots(2, 2,  figsize=(1920*2/DPI, 1080*2/DPI), dpi=DPI)
     ax = ax.ravel()
@@ -60,7 +54,7 @@ for j in range(len(METRIC_X)):
         # Load columns
         nii_cells = nb.load(CHUNKS[i])
         cells = np.asarray(nii_cells.dataobj)
-        idx = cells > 0
+        idx = cells == 1
         cells = np.asarray(nii_cells.dataobj)[idx]  # Reduce memory load
         idx_cells = np.unique(cells)
         idx_cells = idx_cells[1:]  # Remove columns with index 0

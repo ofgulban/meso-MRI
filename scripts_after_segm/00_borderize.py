@@ -6,13 +6,13 @@ import nibabel as nb
 import numpy as np
 
 RIMS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/HG_RH/sub-01_ses-T2s_segm_rim_HG_RH_v02.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/HG_LH/sub-01_ses-T2s_segm_rim_HG_LH_v02.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/CS_RH/sub-01_ses-T2s_segm_rim_CS_RH_v02.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/CS_LH/sub-01_ses-T2s_segm_rim_CS_LH_v02.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/HG_RH/sub-01_ses-T2s_segm_rim_HG_RH_v02.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/HG_LH/sub-01_ses-T2s_segm_rim_HG_LH_v02.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/CS_RH/sub-01_ses-T2s_segm_rim_CS_RH_v02.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/CS_LH/sub-01_ses-T2s_segm_rim_CS_LH_v02.nii.gz",
 ]
 
-OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep"
 
 # -----------------------------------------------------------------------------
 # Output directory
@@ -30,7 +30,8 @@ for i in range(4):
 
     # Layers and middle gray matter
     command = "/home/faruk/Git/LAYNII/LN2_BORDERIZE "
-    command += "-rim {} ".format(rim)
+    command += "-input {} ".format(rim)
+    command += "-jumps 1 "
     command += "-output {} ".format(outname)
     print(command)
     subprocess.run(command, shell=True)
