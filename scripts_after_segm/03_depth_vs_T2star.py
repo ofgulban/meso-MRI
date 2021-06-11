@@ -97,6 +97,10 @@ for j in range(len(METRIC_X)):
         # ax[i].plot(line_x, line_y, '-', linewidth=1.5, color='dodgerblue',
         #            label=r"Mean depth = {:.1f}°".format(indvar_avg))
 
+        # TODO: Save plot data here
+
+        # -------------------------------------------------------------------------
+
         # Plot mean line for dependent variable (y axis)
         depvar_avg = np.mean(depvar)
         line_x = np.linspace(RANGE_X[0], RANGE_X[1], 2)
