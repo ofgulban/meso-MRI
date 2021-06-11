@@ -104,7 +104,7 @@ for j in range(len(METRIC_X)):
         ax[i].plot(line_x, line_y, '-', linewidth=1.5, color='firebrick',
                    label=r"Mean T$_2^*$ = {:.2f} ms".format(depvar_avg))
 
-        ax[i].legend(loc = "upper left", frameon=False)
+        ax[i].legend(loc="upper left", frameon=False)
 
     plt.tight_layout()
     plt.savefig(os.path.join(OUTDIR, "{}_{}".format(SUBJ_ID, FIGURE_TAG)))

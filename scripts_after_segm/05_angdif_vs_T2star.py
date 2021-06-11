@@ -51,7 +51,7 @@ for i in range(len(CHUNKS)):
     # Load columns
     nii_cells = nb.load(CHUNKS[i])
     cells = np.asarray(nii_cells.dataobj)
-    idx = cells > 0
+    idx = cells == 1
     cells = np.asarray(nii_cells.dataobj)[idx]  # Reduce memory load
     idx_cells = np.unique(cells)
     idx_cells = idx_cells[1:]  # Remove columns with index 0
@@ -102,7 +102,7 @@ for i in range(len(CHUNKS)):
                label=r"Mean T$_2^*$ = {:.2f} ms".format(depvar_avg))
 
     # Draw legend
-    ax[i].legend(loc = "upper left", frameon=False)
+    ax[i].legend(loc="upper left", frameon=False)
 
 plt.tight_layout()
 plt.savefig(os.path.join(OUTDIR, "{}_{}".format(SUBJ_ID, FIGURE_TAG)))

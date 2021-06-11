@@ -6,7 +6,7 @@ import numpy as np
 from scipy.ndimage import morphology, generate_binary_structure
 from scipy.ndimage import gaussian_filter
 
-FILE = '/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/sub-05/T1_wholebrain/04_segmentation_reg_to_T2s/sub-05_ses-T2s_MP2RAGE_uni_segm_rim_reg_soi_HG_LH_v02_polished.nii.gz'
+FILE = '/home/faruk/Documents/temp_ale/sub-02_scaled_4_seg_faruk_v1_rim.nii.gz'
 
 # Load data
 nii = nb.load(FILE)
@@ -14,7 +14,7 @@ data = np.asarray(nii.dataobj)
 
 # Separate tissues
 mask = data > 0
-gm = data == 1
+gm = data == 3
 wm = data == 2
 cereb = gm + wm
 
@@ -33,9 +33,9 @@ cereb = cereb > 0.5
 cereb = morphology.binary_dilation(cereb, structure=struct, iterations=1)
 
 # Composit output image
-out = np.full(data.shape, 3)
-out[cereb != 0] = 1
-out[wm != 0] += 1
+out = np.full(data.shape, 1)
+out[cereb != 0] += 2
+out[wm != 0] -= 1
 out *= mask
 
 # Save as nifti

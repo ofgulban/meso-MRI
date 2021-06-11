@@ -1,4 +1,4 @@
-"""Compute anglular difference between streamlines and B0 vector."""
+"""Compute angular difference between streamlines and B0 vector."""
 
 import os
 import numpy as np

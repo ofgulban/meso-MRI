@@ -33,6 +33,7 @@ for i in range(4):
     command += "-nr_layers 5 "
     command += "-curvature "
     command += "-streamlines "
+    command += "-thickness "
     command += "-iter_smooth 100 "
     # command += "-incl_borders "
     command += "-output {} ".format(outname)
