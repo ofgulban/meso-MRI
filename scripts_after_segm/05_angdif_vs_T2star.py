@@ -6,27 +6,27 @@ import nibabel as nb
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
-METRIC_X = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/00_segmentation/sub-01_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
+METRIC_X = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/00_segmentation/sub-04_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
 
 METRIC_Y = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_B0_angles/sub-01_ses-T2s_segm_rim_HG_RH_v02_streamline_vectors_B0angdif.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_B0_angles/sub-01_ses-T2s_segm_rim_HG_LH_v02_streamline_vectors_B0angdif.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_B0_angles/sub-01_ses-T2s_segm_rim_CS_RH_v02_streamline_vectors_B0angdif.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_B0_angles/sub-01_ses-T2s_segm_rim_CS_LH_v02_streamline_vectors_B0angdif.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/04_B0_angles/sub-04_ses-T2s_segm_rim_HG_RH_v02_borderized_streamline_vectors_B0angdif.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/04_B0_angles/sub-04_ses-T2s_segm_rim_HG_LH_v02_borderized_streamline_vectors_B0angdif.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/04_B0_angles/sub-04_ses-T2s_segm_rim_CS_RH_v02_borderized_streamline_vectors_B0angdif.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/04_B0_angles/sub-04_ses-T2s_segm_rim_CS_LH_v02_borderized_streamline_vectors_B0angdif.nii.gz",
     ]
 
 CHUNKS = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_multilaterate/sub-01_ses-T2s_segm_rim_HG_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_multilaterate/sub-01_ses-T2s_segm_rim_HG_LH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_multilaterate/sub-01_ses-T2s_segm_rim_CS_RH_v02_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_multilaterate/sub-01_ses-T2s_segm_rim_CS_LH_v02_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/03_multilaterate/sub-04_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/03_multilaterate/sub-04_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/03_multilaterate/sub-04_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/03_multilaterate/sub-04_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
     ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
-OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/plots/02_B0angdiff"
-SUBJ_ID = "sub-01"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/02_B0angdif"
+SUBJ_ID = "sub-04"
 FIGURE_TAG = "B0angdif"
 
 RANGE_X = (0, 90)
@@ -42,8 +42,14 @@ if not os.path.exists(OUTDIR):
     os.makedirs(OUTDIR)
     print("  Output directory: {}\n".format(OUTDIR))
 
+# -----------------------------------------------------------------------------
+# Prepare figure data output for group figure
+fig_data = dict()
+fig_data["B0angdif"] = []
+fig_data["Depth"] = []
+
 # Prepare figure
-fig, ax = plt.subplots(2, 2,  figsize=(1920*2/DPI, 1080*2/DPI), dpi=DPI)
+fig, ax = plt.subplots(2, 2, figsize=(1920*2/DPI, 1080*2/DPI), dpi=DPI)
 ax = ax.ravel()
 fig.suptitle(SUBJ_ID, x=0.03, y=0.99, color="darkgoldenrod")
 
@@ -67,6 +73,10 @@ for i in range(len(CHUNKS)):
     # Compute chunk volume
     nr_voxels = np.sum(idx)
     volume = nr_voxels * VOXEL_VOLUME
+
+    # Store plot data
+    fig_data["B0angdif"].append(depvar)
+    fig_data["Depth"].append(indvar)
 
     # -------------------------------------------------------------------------
     # 2D histograms
@@ -107,5 +117,7 @@ for i in range(len(CHUNKS)):
 plt.tight_layout()
 plt.savefig(os.path.join(OUTDIR, "{}_{}".format(SUBJ_ID, FIGURE_TAG)))
 # plt.show()
+
+np.save(os.path.join(OUTDIR, "{}_{}".format(SUBJ_ID, FIGURE_TAG)), fig_data)
 
 print("Finished.")

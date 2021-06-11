@@ -7,21 +7,21 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
 FIG_DATA = [
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/01_depth/sub-01_depth.npy",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/01_depth/sub-02_depth.npy",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/01_depth/sub-03_depth.npy",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/01_depth/sub-04_depth.npy",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/01_depth/sub-05_depth.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/02_B0angdif/sub-01_B0angdif.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/02_B0angdif/sub-02_B0angdif.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/02_B0angdif/sub-03_B0angdif.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/02_B0angdif/sub-04_B0angdif.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/02_B0angdif/sub-05_B0angdif.npy",
 ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
-OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/01_depth"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/02_B0angdif"
 SUBJ_ID = "group"
-FIGURE_TAG = "depth"
+FIGURE_TAG = "B0angdif"
 
-RANGE_X = (0, 1)
+RANGE_X = (0, 90)
 RANGE_Y = (20, 50)
 DPI = 300
 NR_BINS = 21
@@ -40,7 +40,7 @@ ax = ax.ravel()
 for j in range(len(FIG_DATA)):  # Loop across individual subjects
     fig_data = np.load(FIG_DATA[j], allow_pickle=True).item()
     METRIC_X = fig_data["Depth"]
-    METRIC_Y = fig_data["T2star"]
+    METRIC_Y = fig_data["B0angdif"]
     for i in range(len(TAGS)):  # Loop across ROIs
         indvar = METRIC_X[i]
         depvar = METRIC_Y[i]
@@ -64,7 +64,7 @@ for j in range(len(FIG_DATA)):  # Loop across individual subjects
         # -------------------------------------------------------------------------
         # Line plots
         # panel = ax[i].errorbar(idx_indvar+j/10, depvar_mean, depvar_ste, fmt="-o")
-        panel = ax[i].plot(idx_indvar / (NR_BINS-1), depvar_median,
+        panel = ax[i].plot((idx_indvar / (NR_BINS-1)) * 90, depvar_median,
                            linewidth=5)
 
 # Configure plot elements
@@ -75,16 +75,17 @@ font = {'family': 'serif',
         }
 
 for i in range(4):
+    ax[i].set_xlim(RANGE_X)
     ax[i].set_ylim(RANGE_Y)
     ax[i].set_title(TAGS[i], fontdict=font)
 
-ax[2].set_xlabel("Normalized cortical depth (equi-volume)"
+ax[2].set_xlabel(r"Angular difference (deg.) relative to B$_0$"
                  "\n"
-                 "0 = white matter border",
+                 r"90° = local surface is perpendicular to B$_0$",
                  fontdict=font, fontsize=18)
-ax[3].set_xlabel("Normalized cortical depth (equi-volume)"
+ax[3].set_xlabel(r"Angular difference (deg.) relative to B$_0$"
                  "\n"
-                 "0 = white matter border",
+                 r"90° = local surface is perpendicular to B$_0$",
                  fontdict=font, fontsize=18)
 
 ax[0].set_ylabel(r"T$_2^*$ (ms)", fontdict=font, fontsize=18)

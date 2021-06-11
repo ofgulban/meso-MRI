@@ -4,13 +4,13 @@ import os
 import subprocess
 
 RIMS = [
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep/sub-01_ses-T2s_segm_rim_HG_RH_v02_borderized.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep/sub-01_ses-T2s_segm_rim_HG_LH_v02_borderized.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep/sub-01_ses-T2s_segm_rim_CS_RH_v02_borderized.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/01_rim_prep/sub-01_ses-T2s_segm_rim_CS_LH_v02_borderized.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_rim_prep/sub-05_ses-T2s_segm_rim_HG_RH_v02_borderized.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_rim_prep/sub-05_ses-T2s_segm_rim_HG_LH_v02_borderized.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_rim_prep/sub-05_ses-T2s_segm_rim_CS_RH_v02_borderized.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_rim_prep/sub-05_ses-T2s_segm_rim_CS_LH_v02_borderized.nii.gz",
 ]
 
-OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/02_layers"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_layers"
 
 # -----------------------------------------------------------------------------
 # Output directory
