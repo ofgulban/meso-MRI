@@ -71,7 +71,7 @@ for j in range(len(FIG_DATA)):  # Loop across individual subjects
 font = {'family': 'serif',
         'color':  '#2c061fff',
         'weight': 'normal',
-        'size': 20,
+        'size': 18,
         }
 
 for i in range(4):
@@ -82,14 +82,14 @@ for i in range(4):
 ax[2].set_xlabel(r"Angular difference (deg.) relative to B$_0$"
                  "\n"
                  r"90° = local surface is perpendicular to B$_0$",
-                 fontdict=font, fontsize=18)
+                 fontdict=font, fontsize=16)
 ax[3].set_xlabel(r"Angular difference (deg.) relative to B$_0$"
                  "\n"
                  r"90° = local surface is perpendicular to B$_0$",
-                 fontdict=font, fontsize=18)
+                 fontdict=font, fontsize=16)
 
-ax[0].set_ylabel(r"T$_2^*$ (ms)", fontdict=font, fontsize=18)
-ax[2].set_ylabel(r"T$_2^*$ (ms)", fontdict=font, fontsize=18)
+ax[0].set_ylabel(r"T$_2^*$ (ms)", fontdict=font, fontsize=16)
+ax[2].set_ylabel(r"T$_2^*$ (ms)", fontdict=font, fontsize=16)
 
 
 plt.tight_layout()

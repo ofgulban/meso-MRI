@@ -68,10 +68,10 @@ for j in range(len(FIG_DATA)):  # Loop across individual subjects
                            linewidth=5)
 
 # Configure plot elements
-font = {'family': 'serif',
+font = {'family': 'sans-serif',
         'color':  '#2c061fff',
         'weight': 'normal',
-        'size': 20,
+        'size': 18,
         }
 
 for i in range(4):
@@ -81,19 +81,19 @@ for i in range(4):
 ax[2].set_xlabel("Normalized cortical depth (equi-volume)"
                  "\n"
                  "0 = white matter border",
-                 fontdict=font, fontsize=18)
+                 fontdict=font, fontsize=16)
 ax[3].set_xlabel("Normalized cortical depth (equi-volume)"
                  "\n"
                  "0 = white matter border",
-                 fontdict=font, fontsize=18)
+                 fontdict=font, fontsize=16)
 
-ax[0].set_ylabel(r"T$_2^*$ (ms)", fontdict=font, fontsize=18)
-ax[2].set_ylabel(r"T$_2^*$ (ms)", fontdict=font, fontsize=18)
+ax[0].set_ylabel(r"T$_2^*$ (ms)", fontdict=font, fontsize=16)
+ax[2].set_ylabel(r"T$_2^*$ (ms)", fontdict=font, fontsize=16)
 
 
 plt.tight_layout()
 plt.savefig(os.path.join(OUTDIR, "{}_{}".format(SUBJ_ID, FIGURE_TAG)),
-            facecolor="#e1d89fff")
+            facecolor="white")
 # plt.show()
 
 print("Finished.\n")
