@@ -64,7 +64,7 @@ for j in range(len(FIG_DATA)):  # Loop across individual subjects
         # -------------------------------------------------------------------------
         # Line plots
         # panel = ax[i].errorbar(idx_indvar+j/10, depvar_mean, depvar_ste, fmt="-o")
-        panel = ax[i].plot(idx_indvar / (NR_BINS-1), depvar_median,
+        panel = ax[i].plot(bins[:-1] + (bins[1] - bins[0]) / 2, depvar_median,
                            linewidth=5)
 
 # Configure plot elements

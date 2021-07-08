@@ -29,7 +29,7 @@ OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/04_thickness"
 SUBJ_ID = "sub-05"
 FIGURE_TAG = "thickness"
 
-RANGE_X = (1.5, 3.5)
+RANGE_X = (0.5, 3.5)
 RANGE_Y = (20, 50)
 DPI = 300
 VOXEL_VOLUME = 0.173611 * 0.173611 * 0.175  # mm
@@ -45,8 +45,8 @@ if not os.path.exists(OUTDIR):
 # -----------------------------------------------------------------------------
 # Prepare figure data output for group figure
 fig_data = dict()
+fig_data["T2star"] = []
 fig_data["thickness"] = []
-fig_data["Depth"] = []
 
 # Prepare figure
 fig, ax = plt.subplots(2, 2,  figsize=(1920*2/DPI, 1080*2/DPI), dpi=DPI)
@@ -75,8 +75,8 @@ for i in range(len(CHUNKS)):
     volume = nr_voxels * VOXEL_VOLUME
 
     # Store plot data
-    fig_data["thickness"].append(depvar)
-    fig_data["Depth"].append(indvar)
+    fig_data["T2star"].append(depvar)
+    fig_data["thickness"].append(indvar)
 
     # -------------------------------------------------------------------------
     # 2D histograms

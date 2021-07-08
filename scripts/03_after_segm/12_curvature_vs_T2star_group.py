@@ -37,10 +37,12 @@ if not os.path.exists(OUTDIR):
 fig, ax = plt.subplots(2, 2, facecolor="#e1d89fff", figsize=(1920*2/DPI, 1080*2/DPI), dpi=DPI)
 ax = ax.ravel()
 
+j = 0
 for j in range(len(FIG_DATA)):  # Loop across individual subjects
     fig_data = np.load(FIG_DATA[j], allow_pickle=True).item()
-    METRIC_X = fig_data["Depth"]
-    METRIC_Y = fig_data["curvature"]
+    METRIC_X = fig_data["curvature"]
+    METRIC_Y = fig_data["T2star"]
+    i = 0
     for i in range(len(TAGS)):  # Loop across ROIs
         indvar = METRIC_X[i]
         depvar = METRIC_Y[i]
@@ -64,7 +66,7 @@ for j in range(len(FIG_DATA)):  # Loop across individual subjects
         # -------------------------------------------------------------------------
         # Line plots
         # panel = ax[i].errorbar(idx_indvar+j/10, depvar_mean, depvar_ste, fmt="-o")
-        panel = ax[i].plot((idx_indvar / (NR_BINS-1)) * 90, depvar_median,
+        panel = ax[i].plot(bins[:-1] + (bins[1] - bins[0]) / 2, depvar_median,
                            linewidth=5)
 
 # Configure plot elements
@@ -90,7 +92,7 @@ ax[2].set_ylabel(r"T$_2^*$ (ms)", fontdict=font, fontsize=16)
 
 plt.tight_layout()
 plt.savefig(os.path.join(OUTDIR, "{}_{}".format(SUBJ_ID, FIGURE_TAG)),
-            facecolor="#e1d89fff")
+            facecolor="white")
 # plt.show()
 
 print("Finished.\n")

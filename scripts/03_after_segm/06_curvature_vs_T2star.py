@@ -6,27 +6,27 @@ import nibabel as nb
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
-METRIC_Y = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-03/segmentation/00_segmentation/sub-03_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
+METRIC_Y = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/00_segmentation/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz"
 
 METRIC_X = [
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-03/segmentation/02_layers/sub-03_ses-T2s_segm_rim_HG_RH_v02_borderized_curvature.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-03/segmentation/02_layers/sub-03_ses-T2s_segm_rim_HG_LH_v02_borderized_curvature.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-03/segmentation/02_layers/sub-03_ses-T2s_segm_rim_CS_RH_v02_borderized_curvature.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-03/segmentation/02_layers/sub-03_ses-T2s_segm_rim_CS_LH_v02_borderized_curvature.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_layers/sub-05_ses-T2s_segm_rim_HG_RH_v02_borderized_curvature.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_layers/sub-05_ses-T2s_segm_rim_HG_LH_v02_borderized_curvature.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_layers/sub-05_ses-T2s_segm_rim_CS_RH_v02_borderized_curvature.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_layers/sub-05_ses-T2s_segm_rim_CS_LH_v02_borderized_curvature.nii.gz",
     ]
 
 CHUNKS = [
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-03/segmentation/03_multilaterate/sub-03_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-03/segmentation/03_multilaterate/sub-03_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-03/segmentation/03_multilaterate/sub-03_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-03/segmentation/03_multilaterate/sub-03_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/03_multilaterate/sub-05_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/03_multilaterate/sub-05_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/03_multilaterate/sub-05_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/03_multilaterate/sub-05_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
     ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
 OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/03_curvature"
-SUBJ_ID = "sub-03"
+SUBJ_ID = "sub-05"
 FIGURE_TAG = "curvature"
 
 RANGE_X = (-1, 1)
@@ -45,8 +45,8 @@ if not os.path.exists(OUTDIR):
 # -----------------------------------------------------------------------------
 # Prepare figure data output for group figure
 fig_data = dict()
+fig_data["T2star"] = []
 fig_data["curvature"] = []
-fig_data["Depth"] = []
 
 # Prepare figure
 fig, ax = plt.subplots(2, 2,  figsize=(1920*2/DPI, 1080*2/DPI), dpi=DPI)
@@ -75,8 +75,8 @@ for i in range(len(CHUNKS)):
     volume = nr_voxels * VOXEL_VOLUME
 
     # Store plot data
-    fig_data["curvature"].append(depvar)
-    fig_data["Depth"].append(indvar)
+    fig_data["T2star"].append(depvar)
+    fig_data["curvature"].append(indvar)
 
     # -------------------------------------------------------------------------
     # 2D histograms
