@@ -199,7 +199,7 @@ for s in SUBJ_ID:
 
         # Custom tick labels
         ax[i].set_xticks([0, 50, 99, 101, 150, 199, 201, 250, 300])
-        ax[i].set_xticklabels([1.4, 0.7, None, 0, 0.5, 1, None, 0.7, 1.4])
+        ax[i].set_xticklabels([0.7, 0.35, None, 0, 0.5, 1, None, 0.35, 0.7])
         ax[i].set_yticks([0, 20, 40, 60, 80, 100])
         ax[i].set_yticklabels([10, 20, 30, 40, 50, 60])
 
