@@ -1,4 +1,4 @@
-"""Simple layer profile plots"""
+"""Single subject layer profile plots."""
 
 import os
 import copy
@@ -11,7 +11,7 @@ SUBJ_ID = ["sub-01", "sub-02", "sub-03", "sub-04", "sub-05"]
 OUTDIR = "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star"
 FIGURE_TAG = "depth_vs_T2star"
 
-# =========================================================================
+# =============================================================================
 for s in SUBJ_ID:
     METRIC_X = [
         "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_HG_RH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
