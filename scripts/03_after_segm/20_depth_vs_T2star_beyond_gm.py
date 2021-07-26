@@ -150,17 +150,8 @@ for s in SUBJ_ID:
                              interpolation="none", aspect="auto",
                              vmin=0, vmax=300, extent=(0, 200, 0, 100))
 
-        # ax[i].tick_params(
-        #     axis='y',
-        #     which='both',  # both major and minor ticks are affected
-        #     bottom=False, top=False,
-        #     left=False, right=False,
-        #     labelbottom=False,
-        #     labelleft=False
-        #     )
-
         cb = fig.colorbar(panel, ax=ax[i], pad=0.03, shrink=0.65)
-        cb.ax.text(0, -15, "Nr.\nvoxels", rotation=0, color="white",
+        cb.ax.text(0, -55, "Nr.\nvoxels", rotation=0, color="white",
                    multialignment="center")
 
         ax[i].set_title(r"{}".format(TAGS[i]),
