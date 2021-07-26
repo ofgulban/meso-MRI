@@ -37,7 +37,6 @@ for s in SUBJ_ID:
     DPI = 300
     VOXEL_VOLUME = 0.173611 * 0.173611 * 0.175  # mm
     VOXEL_VOLUME /= 1000  # mm^3 to cm^3
-    RANGE_CBAR = (0, 150)
 
     # =========================================================================
     # Output directory
