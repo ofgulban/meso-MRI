@@ -7,16 +7,17 @@ import nibabel as nb
 
 # =============================================================================
 NII_NAMES = [
-    '/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/05_average/sub-01_ses-T1_MP2RAGE_inv2_crop_ups2X_avg.nii.gz',
-    '/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/05_average/sub-01_ses-T1_MP2RAGE_uni_crop_ups2X_avg.nii.gz',
+    # '/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/05_average/sub-05_ses-T1_MP2RAGE_inv2_crop_ups2X_avg.nii.gz',
+    # '/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/05_average/sub-05_ses-T1_MP2RAGE_uni_crop_ups2X_avg.nii.gz',
+    '/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/05_average/sub-05_ses-T1_MP2RAGE_T1_crop_ups2X_avg.nii.gz',
     ]
 
-NII_TARGET = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T2s/12_T2star/sub-01_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz"
+NII_TARGET = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T2s/12_T2star/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz"
 
 # Use ITK-SNAP manually to find the best registration
-AFFINE = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/07_register_to_T2s/sub-01_ses-T1_reg_to_T2s.mat"
+AFFINE = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/07_register_to_T2s/sub-05_ses-T1_reg_to_T2s.mat"
 
-OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/07_register_to_T2s"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/07_register_to_T2s"
 
 # =============================================================================
 print("Step_07: Apply registration from T1 to T2s space")

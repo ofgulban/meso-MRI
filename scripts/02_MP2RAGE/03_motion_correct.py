@@ -1,4 +1,4 @@
-"""Register each run to one reference run."""
+"""Register each run to one reference run, computed once on INV2 images."""
 
 import os
 import subprocess

@@ -7,34 +7,28 @@ import nibabel as nb
 
 # =============================================================================
 NII_NAMES = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/02_upsample/sub-01_ses-T1_run-02_dir-AP_MP2RAGE_uni_crop_ups2X.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/02_upsample/sub-01_ses-T1_run-03_dir-AP_MP2RAGE_uni_crop_ups2X.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/02_upsample/sub-01_ses-T1_run-04_dir-AP_MP2RAGE_uni_crop_ups2X.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/02_upsample/sub-01_ses-T1_run-05_dir-AP_MP2RAGE_uni_crop_ups2X.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/02_upsample/sub-01_ses-T1_run-06_dir-AP_MP2RAGE_uni_crop_ups2X.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/02_upsample/sub-01_ses-T1_run-02_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/02_upsample/sub-01_ses-T1_run-03_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/02_upsample/sub-01_ses-T1_run-04_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/02_upsample/sub-01_ses-T1_run-05_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X.nii.gz",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/02_upsample/sub-01_ses-T1_run-06_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/02_upsample/sub-05_ses-T1_run-02_dir-RL_MP2RAGE_T1_crop_ups2X.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/02_upsample/sub-05_ses-T1_run-03_dir-PA_MP2RAGE_T1_crop_ups2X.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/02_upsample/sub-05_ses-T1_run-04_dir-LR_MP2RAGE_T1_crop_ups2X.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/02_upsample/sub-05_ses-T1_run-05_dir-AP_MP2RAGE_T1_crop_ups2X.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/02_upsample/sub-05_ses-T1_run-06_dir-RL_MP2RAGE_T1_crop_ups2X.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/02_upsample/sub-05_ses-T1_run-07_dir-PA_MP2RAGE_T1_crop_ups2X.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/02_upsample/sub-05_ses-T1_run-08_dir-LR_MP2RAGE_T1_crop_ups2X.nii.gz",
     ]
 
 AFFINES = [
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/03_motion_correct/sub-01_ses-T1_run-02_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/03_motion_correct/sub-01_ses-T1_run-03_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/03_motion_correct/sub-01_ses-T1_run-04_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/03_motion_correct/sub-01_ses-T1_run-05_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/03_motion_correct/sub-01_ses-T1_run-06_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/03_motion_correct/sub-01_ses-T1_run-02_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/03_motion_correct/sub-01_ses-T1_run-03_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/03_motion_correct/sub-01_ses-T1_run-04_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/03_motion_correct/sub-01_ses-T1_run-05_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
-    "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/03_motion_correct/sub-01_ses-T1_run-06_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/03_motion_correct/sub-05_ses-T1_run-02_dir-RL_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/03_motion_correct/sub-05_ses-T1_run-03_dir-PA_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/03_motion_correct/sub-05_ses-T1_run-04_dir-LR_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/03_motion_correct/sub-05_ses-T1_run-05_dir-AP_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/03_motion_correct/sub-05_ses-T1_run-06_dir-RL_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/03_motion_correct/sub-05_ses-T1_run-07_dir-PA_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/03_motion_correct/sub-05_ses-T1_run-08_dir-LR_part-mag_MP2RAGE_inv2_crop_ups2X_affine.mat",
 ]
 
-REFERENCE = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/02_upsample/sub-01_ses-T1_run-01_dir-AP_MP2RAGE_uni_crop_ups2X.nii.gz"
+REFERENCE = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/02_upsample/sub-05_ses-T1_run-01_dir-AP_MP2RAGE_uni_crop_ups2X.nii.gz"
 
-OUTDIR = "/home/faruk/data/DATA_MRI_NIFTI/derived/sub-01/T1/04_apply_reg"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/T1/04_apply_reg"
 
 # =============================================================================
 print("MP2RAGE Step 04: Apply registration to UNI images.")
