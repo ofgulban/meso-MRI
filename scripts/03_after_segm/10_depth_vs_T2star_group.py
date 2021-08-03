@@ -7,17 +7,17 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
 FIG_DATA = [
-    "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-01_depth_vs_T2star.npy",
-    "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-02_depth_vs_T2star.npy",
-    "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-03_depth_vs_T2star.npy",
-    "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-04_depth_vs_T2star.npy",
-    "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-05_depth_vs_T2star.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-01_depth_vs_T2star.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-02_depth_vs_T2star.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-03_depth_vs_T2star.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-04_depth_vs_T2star.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-05_depth_vs_T2star.npy",
     ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
-OUTDIR = "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star"
 SUBJ_ID = "group"
 FIGURE_TAG = "depth_vs_T2star"
 
@@ -98,7 +98,7 @@ for i in range(4):
                color=[255/255, 102/255, 0/255])
 
     # Custom tick labels
-    ax[i].set_xticks([-0.7, 0.35, 0.01, 0.1, 0.5, 0.99, 1.01, 1.35, 1.7])
+    ax[i].set_xticks([-0.7, -0.35, -0.01, 0.01, 0.5, 0.99, 1.01, 1.35, 1.7])
     ax[i].set_xticklabels([0.7, 0.35, None, 0, 0.5, 1, None, 0.35, 0.7])
     ax[i].set_yticks(np.linspace(RANGE_Y[0], RANGE_Y[1], 6, dtype=np.int))
     ax[i].set_yticklabels(np.linspace(RANGE_Y[0], RANGE_Y[1], 6,
