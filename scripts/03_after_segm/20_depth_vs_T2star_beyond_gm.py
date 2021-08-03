@@ -8,25 +8,25 @@ import matplotlib.pyplot as plt
 import colorcet as cc
 
 SUBJ_ID = ["sub-01", "sub-02", "sub-03", "sub-04", "sub-05"]
-OUTDIR = "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star"
 FIGURE_TAG = "depth_vs_T2star"
 
 # =============================================================================
 for s in SUBJ_ID:
     METRIC_X = [
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_HG_RH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_HG_LH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_CS_RH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_CS_LH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_HG_RH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_HG_LH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_CS_RH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_CS_LH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
         ]
 
-    METRIC_Y = "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/T2s/12_T2star/{}_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz".format(s, s)
+    METRIC_Y = "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/T2s/12_T2star/{}_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz".format(s, s)
 
     CHUNKS = [
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
         ]
 
     TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
