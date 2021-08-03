@@ -7,19 +7,19 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
 FIG_DATA = [
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-01_depth_vs_T2star.npy",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-02_depth_vs_T2star.npy",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-03_depth_vs_T2star.npy",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-04_depth_vs_T2star.npy",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star/sub-05_depth_vs_T2star.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/21_depth_vs_T1/sub-01_depth_vs_T1.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/21_depth_vs_T1/sub-02_depth_vs_T1.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/21_depth_vs_T1/sub-03_depth_vs_T1.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/21_depth_vs_T1/sub-04_depth_vs_T1.npy",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/21_depth_vs_T1/sub-05_depth_vs_T1.npy",
     ]
 
 TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
         "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
-OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/21_depth_vs_T1"
 SUBJ_ID = "group"
-FIGURE_TAG = "depth_vs_T2star"
+FIGURE_TAG = "depth_vs_T1"
 
 RANGE_X = (-0.7, 1.7)
 RANGE_Y = (0, 100)

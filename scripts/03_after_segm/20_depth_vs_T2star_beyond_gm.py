@@ -158,7 +158,7 @@ for s in SUBJ_ID:
 
         # ---------------------------------------------------------------------
         # Axis labels
-        ax[i].set_ylabel(r"T$_2^*$ (ms)")
+        ax[i].set_ylabel(r"T$_2^*$ [ms]")
 
         # Plot median lines
         median_x = np.median(fig_data[TAGS[i]]["WM"]["Metric_y"])

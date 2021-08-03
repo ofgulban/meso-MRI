@@ -5,41 +5,42 @@ import copy
 import numpy as np
 import nibabel as nb
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FormatStrFormatter
 import colorcet as cc
 
 SUBJ_ID = ["sub-01", "sub-02", "sub-03", "sub-04", "sub-05"]
-OUTDIR = "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/plots/21_depth_vs_T1"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/21_depth_vs_T1"
 
 # =============================================================================
 for s in SUBJ_ID:
     METRIC_X = [
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_HG_RH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_HG_LH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_CS_RH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_CS_LH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_HG_RH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_HG_LH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_CS_RH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_CS_LH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
         ]
 
-    METRIC_Y = "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/T1/07_register_to_T2s/{}_ses-T1_MP2RAGE_T1_crop_ups2X_avg_reg.nii.gz".format(s, s)
+    METRIC_Y = "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/T1/07_register_to_T2s/{}_ses-T1_MP2RAGE_T1_crop_ups2X_avg_reg.nii.gz".format(s, s)
 
     CHUNKS = [
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
-        "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
+        "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
         ]
 
     TAGS = ["Heschl's Gyrus Right", "Heschl's Gyrus Left",
             "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
     RANGE_X = (-0.7, 1.7)
-    RANGE_Y = (0, 30000)
+    RANGE_Y = (800, 3800)
     DPI = 300
     VOXEL_VOLUME = 0.173611 * 0.173611 * 0.175  # mm
     VOXEL_VOLUME /= 1000  # mm^3 to cm^3
 
     RECIPROCAL = False
 
-    YLABEL = r"T$_1$ (s)"
+    YLABEL = r"T$_1$ [s]"
     FIGURE_TAG = "depth_vs_T1"
 
     # =========================================================================
@@ -154,10 +155,10 @@ for s in SUBJ_ID:
 
         panel = ax[i].imshow(img.T, origin="lower", cmap=cc.cm.fire,
                              interpolation="none", aspect="auto",
-                             vmin=0, vmax=300, extent=(0, 200, 0, 100))
+                             vmin=0, vmax=600, extent=(0, 200, 0, 100))
 
         cb = fig.colorbar(panel, ax=ax[i], pad=0.03, shrink=0.65)
-        cb.ax.text(0, -55, "Nr.\nvoxels", rotation=0, color="white",
+        cb.ax.text(0, -105, "Nr.\nvoxels", rotation=0, color="white",
                    multialignment="center")
 
         ax[i].set_title(r"{}".format(TAGS[i]),
@@ -189,8 +190,9 @@ for s in SUBJ_ID:
         # Set Y axis tick labels
         ax[i].set_ylabel(YLABEL)
         ax[i].set_yticks(np.linspace(0, nr_bins-1, 6, dtype=np.int))
-        ax[i].set_yticklabels(np.linspace(RANGE_Y[0]/1000, RANGE_Y[1]/1000,
-                                          6, dtype=np.int))
+        yticks = np.linspace(RANGE_Y[0], RANGE_Y[1], 6) / 1000
+        yticks = ["{:.1f}".format(y) for y in yticks]
+        ax[i].set_yticklabels(yticks)
 
         # # Plot median lines
         # median_x = np.median(fig_data[TAGS[i]]["WM"]["Metric_y"])
