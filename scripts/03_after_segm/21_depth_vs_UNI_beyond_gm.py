@@ -66,6 +66,9 @@ for s in SUBJ_ID:
         nii_y = nb.load(METRIC_Y)
         metric_y = np.asarray(nii_y.dataobj)[idx]
 
+        if RECIPROCAL:
+            metric_y = 1. / metric_y
+
         # Secondary indices to separate tissues
         idx2 = np.zeros((np.sum(idx), 3), dtype=np.bool)
         for j, k in enumerate(metric_x):
