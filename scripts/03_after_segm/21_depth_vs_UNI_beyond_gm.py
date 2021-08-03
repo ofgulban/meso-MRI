@@ -8,8 +8,7 @@ import matplotlib.pyplot as plt
 import colorcet as cc
 
 SUBJ_ID = ["sub-01", "sub-02", "sub-03", "sub-04", "sub-05"]
-OUTDIR = "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/plots/21_depth_vs_UNI"
-FIGURE_TAG = "depth_vs_UNI"
+OUTDIR = "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/plots/21_depth_vs_T1"
 
 # =============================================================================
 for s in SUBJ_ID:
@@ -20,7 +19,7 @@ for s in SUBJ_ID:
         "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_CS_LH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
         ]
 
-    METRIC_Y = "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/T1/07_register_to_T2s/{}_ses-T1_MP2RAGE_uni_crop_ups2X_avg_reg.nii.gz".format(s, s)
+    METRIC_Y = "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/T1/07_register_to_T2s/{}_ses-T1_MP2RAGE_T1_crop_ups2X_avg_reg.nii.gz".format(s, s)
 
     CHUNKS = [
         "/media/faruk/Seagate Backup Plus Drive/DATA_MRI_NIFTI/derived/{}/segmentation/05_beyond_gm_prep/{}_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk_voronoi_dilated.nii.gz".format(s, s),
@@ -33,10 +32,15 @@ for s in SUBJ_ID:
             "Calcarine Sulcus Right", "Calcarine Sulcus Left"]
 
     RANGE_X = (-0.7, 1.7)
-    RANGE_Y = (2000, 12000)
+    RANGE_Y = (0, 30000)
     DPI = 300
     VOXEL_VOLUME = 0.173611 * 0.173611 * 0.175  # mm
     VOXEL_VOLUME /= 1000  # mm^3 to cm^3
+
+    RECIPROCAL = False
+
+    YLABEL = r"T$_1$ (s)"
+    FIGURE_TAG = "depth_vs_T1"
 
     # =========================================================================
     # Output directory
@@ -61,6 +65,9 @@ for s in SUBJ_ID:
         metric_x = np.asarray(nii_x.dataobj)[idx]
         nii_y = nb.load(METRIC_Y)
         metric_y = np.asarray(nii_y.dataobj)[idx]
+
+        if RECIPROCAL:
+            metric_y = 1. / metric_y
 
         # Secondary indices to separate tissues
         idx2 = np.zeros((np.sum(idx), 3), dtype=np.bool)
@@ -157,59 +164,59 @@ for s in SUBJ_ID:
                         color="gray")
 
         # ---------------------------------------------------------------------
-        # # Axis labels
-        # ax[i].set_ylabel(r"T$_2^*$ (ms)")
-        #
+        # X axis break points
+        ax[i].plot((50, 50), (0, 100), '-', linewidth=1.5,
+                   color=[100/255, 149/255, 237/255])
+        ax[i].plot((150, 150), (0, 100), '-', linewidth=1.5,
+                   color=[255/255, 102/255, 0/255])
+
+        # Add text (positions are in data coordinates)
+        ax[i].text(0 + 1, 80, 'Below\ngray matter\n(White matter)',
+                   fontsize=10, color="white")
+        ax[i].text(50 + 1, 80, 'Gray matter\n\n',
+                   fontsize=10, color="white")
+        ax[i].text(150 + 1, 80, 'Above\ngray matter\n(CSF & vessels)',
+                   fontsize=10, color="white")
+
+        # Add text (units)
+        ax[i].text(0 + 1, 2, 'Distance [mm]',
+                   fontsize=10, color="white")
+        ax[i].text(50 + 1, 2, 'Equi-volume depths',
+                   fontsize=10, color="white")
+        ax[i].text(150 + 1, 2, 'Distance [mm]',
+                   fontsize=10, color="white")
+
+        # Set Y axis tick labels
+        ax[i].set_ylabel(YLABEL)
+        ax[i].set_yticks(np.linspace(0, nr_bins-1, 6, dtype=np.int))
+        ax[i].set_yticklabels(np.linspace(RANGE_Y[0]/1000, RANGE_Y[1]/1000,
+                                          6, dtype=np.int))
+
         # # Plot median lines
         # median_x = np.median(fig_data[TAGS[i]]["WM"]["Metric_y"])
-        # median_line_x = median_x + RANGE_Y[0]
+        # median_line_x = median_x + RANGE_Y[0]/1000
         # ax[i].plot((0, 50), (median_line_x, median_line_x),
         #            '-', linewidth=1.5, color="white")
         # ax[i].text(0+1, median_line_x + 1, '{:.1f}'.format(median_x),
         #            fontsize=10, color="white")
         #
         # median_x = np.median(fig_data[TAGS[i]]["GM"]["Metric_y"])
-        # median_line_x = median_x + RANGE_Y[0]
+        # median_line_x = median_x + RANGE_Y[0]/1000
         # ax[i].plot((50, 150), (median_line_x, median_line_x),
         #            '-', linewidth=1.5, color="white")
         # ax[i].text(50+1, median_line_x + 1, '{:.1f}'.format(median_x),
         #            fontsize=10, color="white")
         #
         # median_x = np.median(fig_data[TAGS[i]]["CSF"]["Metric_y"])
-        # median_line_x = median_x + RANGE_Y[0]
+        # median_line_x = median_x + RANGE_Y[0]/1000
         # ax[i].plot((150, 200), (median_line_x, median_line_x),
         #            '-', linewidth=1.5, color="white")
         # ax[i].text(150+1, median_line_x + 1, '{:.1f}'.format(median_x),
         #            fontsize=10, color="white")
 
-        # # X axis break points
-        # ax[i].plot((50, 50), (0, 100), '-', linewidth=1.5,
-        #            color=[100/255, 149/255, 237/255])
-        # ax[i].plot((150, 150), (0, 100), '-', linewidth=1.5,
-        #            color=[255/255, 102/255, 0/255])
-        #
-        # # Custom tick labels
-        # ax[i].set_xticks([0, 25, 49, 51, 100, 149, 151, 175, 200])
-        # ax[i].set_xticklabels([0.7, 0.35, None, 0, 0.5, 1, None, 0.35, 0.7])
-        # ax[i].set_yticks(np.linspace(0, nr_bins-1, 6, dtype=np.int))
-        # ax[i].set_yticklabels(np.linspace(RANGE_Y[0], RANGE_Y[1], 6,
-        #                                   dtype=np.int))
-
-        # # Add text (positions are in data coordinates)
-        # ax[i].text(0 + 1, 80, 'Below\ngray matter\n(White matter)',
-        #            fontsize=10, color="white")
-        # ax[i].text(50 + 1, 80, 'Gray matter\n\n',
-        #            fontsize=10, color="white")
-        # ax[i].text(150 + 1, 80, 'Above\ngray matter\n(CSF & vessels)',
-        #            fontsize=10, color="white")
-        #
-        # # Add text (units)
-        # ax[i].text(0 + 1, 2, 'Distance [mm]',
-        #            fontsize=10, color="white")
-        # ax[i].text(50 + 1, 2, 'Equi-volume depths',
-        #            fontsize=10, color="white")
-        # ax[i].text(150 + 1, 2, 'Distance [mm]',
-        #            fontsize=10, color="white")
+        # Set X axis tick labels
+        ax[i].set_xticks([0, 25, 49, 51, 100, 149, 151, 175, 200])
+        ax[i].set_xticklabels([0.7, 0.35, None, 0, 0.5, 1, None, 0.35, 0.7])
 
     plt.tight_layout()
     plt.savefig(os.path.join(OUTDIR, "{}_{}".format(s, FIGURE_TAG)))
