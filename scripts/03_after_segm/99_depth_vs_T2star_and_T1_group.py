@@ -32,7 +32,7 @@ FIGURE_TAG = "depth_vs_T2star_and_T1"
 
 RANGE_X = (-0.7, 1.7)
 RANGE_Y_1 = (0, 100)
-RANGE_Y_2 = (400, 3800)
+RANGE_Y_2 = (500, 3500)
 DPI = 300
 NR_BINS = 48
 
