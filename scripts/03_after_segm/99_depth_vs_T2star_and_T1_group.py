@@ -32,7 +32,7 @@ FIGURE_TAG = "depth_vs_T2star_and_T1"
 
 RANGE_X = (-0.7, 1.7)
 RANGE_Y_1 = (0, 100)
-RANGE_Y_2 = (800, 3800)
+RANGE_Y_2 = (400, 3800)
 DPI = 300
 NR_BINS = 48
 
@@ -45,8 +45,9 @@ if not os.path.exists(OUTDIR):
 # -----------------------------------------------------------------------------
 # Prepare figure
 plt.style.use('dark_background')
-fig, ax = plt.subplots(2, 2, figsize=(1920*2/DPI, 1080*2/DPI), dpi=DPI)
-ax = ax.ravel()
+fig, ax1 = plt.subplots(2, 2, figsize=(1920*2/DPI, 1080*2/DPI), dpi=DPI)
+ax1 = ax1.ravel()
+ax2 = np.copy(ax1)
 
 for j in range(len(FIG_DATA_1)):  # Loop across individual subjects
     fig_data_1 = np.load(FIG_DATA_1[j], allow_pickle=True).item()
@@ -83,45 +84,57 @@ for j in range(len(FIG_DATA_1)):  # Loop across individual subjects
 
         # ---------------------------------------------------------------------
         # Line plots
-        ax[i].plot(bins[:-1] + (bins[1] - bins[0]) / 2, depvar_median_1,
-                   linewidth=0.5, color="red")
+        ax1[i].plot(bins[:-1] + (bins[1] - bins[0]) / 2, depvar_median_1,
+                    linewidth=1, color="white")
 
-        ax[i].plot(bins[:-1] + (bins[1] - bins[0]) / 2, depvar_median_2,
-                   linewidth=0.5, color="green")
+        ax2[i] = ax1[i].twinx()  # instantiate a second y axis
+        ax2[i].plot(bins[:-1] + (bins[1] - bins[0]) / 2, depvar_median_2,
+                 linewidth=1, color="red")
+
+        # NOTE: I dont get why but second y axis labels only work when done here
+        ax2[i].set_ylabel(r"T$_1$ [ms]", color="red")
+        ax2[i].set_ylim(RANGE_Y_2)
+        ax2[i].set_yticks(np.linspace(RANGE_Y_2[0], RANGE_Y_2[1], 6,
+                          dtype=np.int))
+        ax2[i].set_yticklabels(np.linspace(RANGE_Y_2[0], RANGE_Y_2[1], 6,
+                                          dtype=np.int), color="red")
+
 
 for i in range(4):
-    ax[i].set_title(r"{}".format(TAGS[i]), color="white")
-    ax[i].set_title(TAGS[i])
-    ax[i].set_ylabel(r"T$_2^*$ [ms]")
-    ax[i].set_ylim(RANGE_Y_1)
+    ax1[i].set_title(r"{}".format(TAGS[i]), color="white")
+    ax1[i].set_title(TAGS[i])
+
+    ax1[i].set_ylabel(r"T$_2^*$ [ms]")
+    ax1[i].set_ylim(RANGE_Y_1)
 
     # X axis break points
-    ax[i].plot((0, 0), (0, 100), '-', linewidth=1.5,
+    ax1[i].plot((0, 0), (0, 100), '-', linewidth=1.5,
                color=[100/255, 149/255, 237/255])
-    ax[i].plot((1, 1), (0, 100), '-', linewidth=1.5,
+    ax1[i].plot((1, 1), (0, 100), '-', linewidth=1.5,
                color=[255/255, 102/255, 0/255])
 
     # Custom tick labels
-    ax[i].set_xticks([-0.7, -0.35, -0.01, 0.01, 0.5, 0.99, 1.01, 1.35, 1.7])
-    ax[i].set_xticklabels([0.7, 0.35, None, 0, 0.5, 1, None, 0.35, 0.7])
-    ax[i].set_yticks(np.linspace(RANGE_Y_1[0], RANGE_Y_1[1], 6, dtype=np.int))
-    ax[i].set_yticklabels(np.linspace(RANGE_Y_1[0], RANGE_Y_1[1], 6,
+    ax1[i].set_xticks([-0.7, -0.35, -0.01, 0.01, 0.5, 0.99, 1.01, 1.35, 1.7])
+    ax1[i].set_xticklabels([0.7, 0.35, None, 0, 0.5, 1, None, 0.35, 0.7])
+
+    ax1[i].set_yticks(np.linspace(RANGE_Y_1[0], RANGE_Y_1[1], 6, dtype=np.int))
+    ax1[i].set_yticklabels(np.linspace(RANGE_Y_1[0], RANGE_Y_1[1], 6,
                                       dtype=np.int))
 
     # Add text (positions are in data coordinates)
-    ax[i].text(-0.7 + 0.025, 80, 'Below\ngray matter\n(White matter)',
+    ax1[i].text(-0.7 + 0.025, 80, 'Below\ngray matter\n(White matter)',
                fontsize=10, color="white")
-    ax[i].text(0 + 0.025, 80, 'Gray matter\n\n',
+    ax1[i].text(0 + 0.025, 80, 'Gray matter\n\n',
                fontsize=10, color="white")
-    ax[i].text(1 + 0.025, 80, 'Above\ngray matter\n(CSF & vessels)',
+    ax1[i].text(1 + 0.025, 80, 'Above\ngray matter\n(CSF & vessels)',
                fontsize=10, color="white")
 
     # Add text (units)
-    ax[i].text(-0.7 + 0.025, 2, 'Distance [mm]',
+    ax1[i].text(-0.7 + 0.025, 2, 'Distance [mm]',
                fontsize=10, color="white")
-    ax[i].text(0 + 0.025, 2, 'Equi-volume depths',
+    ax1[i].text(0 + 0.025, 2, 'Equi-volume depths',
                fontsize=10, color="white")
-    ax[i].text(1 + 0.025, 2, 'Distance [mm]',
+    ax1[i].text(1 + 0.025, 2, 'Distance [mm]',
                fontsize=10, color="white")
 
 
