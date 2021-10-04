@@ -4,20 +4,20 @@ import os
 import subprocess
 
 RIMS = [
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_rim_prep/sub-05_ses-T2s_segm_rim_HG_RH_v02_borderized.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_rim_prep/sub-05_ses-T2s_segm_rim_HG_LH_v02_borderized.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_rim_prep/sub-05_ses-T2s_segm_rim_CS_RH_v02_borderized.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/01_rim_prep/sub-05_ses-T2s_segm_rim_CS_LH_v02_borderized.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/01_rim_prep/sub-04_ses-T2s_segm_rim_HG_RH_v02_borderized.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/01_rim_prep/sub-04_ses-T2s_segm_rim_HG_LH_v02_borderized.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/01_rim_prep/sub-04_ses-T2s_segm_rim_CS_RH_v02_borderized.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/01_rim_prep/sub-04_ses-T2s_segm_rim_CS_LH_v02_borderized.nii.gz",
 ]
 
 CENTROIDS = [
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_layers/sub-05_ses-T2s_segm_rim_HG_RH_v02_borderized_midGM_equidist_centroid.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_layers/sub-05_ses-T2s_segm_rim_HG_LH_v02_borderized_midGM_equidist_centroid.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_layers/sub-05_ses-T2s_segm_rim_CS_RH_v02_borderized_midGM_equidist_centroid.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/02_layers/sub-05_ses-T2s_segm_rim_CS_LH_v02_borderized_midGM_equidist_centroid.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/02_layers/sub-04_ses-T2s_segm_rim_HG_RH_v02_borderized_midGM_equidist_centroid.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/02_layers/sub-04_ses-T2s_segm_rim_HG_LH_v02_borderized_midGM_equidist_centroid.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/02_layers/sub-04_ses-T2s_segm_rim_CS_RH_v02_borderized_midGM_equidist_centroid.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/02_layers/sub-04_ses-T2s_segm_rim_CS_LH_v02_borderized_midGM_equidist_centroid.nii.gz",
 ]
 
-OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-05/segmentation/03_multilaterate"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/03_multilaterate"
 
 # -----------------------------------------------------------------------------
 # Output directory
@@ -39,6 +39,7 @@ for i in range(len(RIMS)):
     command += "-rim {} ".format(rim)
     command += "-control_points {} ".format(centroid)
     command += "-radius 15 "
+    command += "-norms "
     # command += "-incl_borders "
     command += "-output {} ".format(outname)
     print(command)
