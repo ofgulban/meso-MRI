@@ -33,9 +33,9 @@ DOMAIN =[
 
 OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/08_cakeplot_flats"
 
-BINS_U = 100
-BINS_V = 100
-BINS_D = 21
+BINS_U = 720
+BINS_V = 720
+BINS_D = 201
 
 TAG = "T2star"
 
@@ -62,8 +62,11 @@ for i in range(len(DOMAIN)):
     command += "-coord_uv {} ".format(coord_uv)
     command += "-coord_d {} ".format(coord_d)
     command += "-domain {} ".format(domain)
-    command += "-bins_u {} -bins_v {} -bins_d {} ".format(BINS_U, BINS_V, BINS_D)
+    command += "-bins_u {} ".format(BINS_U)
+    command += "-bins_v {} ".format(BINS_V)
+    command += "-bins_d {} ".format(BINS_D)
     command += "-voronoi "
+    command += "-norm_mask "
     command += "-output {} ".format(outname)
     print(command)
     subprocess.run(command, shell=True)
