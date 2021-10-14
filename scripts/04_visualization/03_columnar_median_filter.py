@@ -75,6 +75,7 @@ for j in range(len(VALUES)):
         command += "-domain {} ".format(domain)
         command += "-radius {} ".format(RADIUS)
         command += "-height {} ".format(HEIGHT)
+        command += "-median "
         command += "-output {} ".format(outname)
 
         print(command)
