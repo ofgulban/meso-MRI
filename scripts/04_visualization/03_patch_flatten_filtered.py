@@ -7,30 +7,20 @@ import numpy as np
 import glob
 
 VALUES = [[
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/02_layers/sub-04_ses-T2s_segm_rim_HG_RH_v02_borderized_curvature_binned.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/02_layers/sub-04_ses-T2s_segm_rim_HG_LH_v02_borderized_curvature_binned.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/02_layers/sub-04_ses-T2s_segm_rim_CS_RH_v02_borderized_curvature_binned.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/02_layers/sub-04_ses-T2s_segm_rim_CS_LH_v02_borderized_curvature_binned.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/08_median_filter/sub-04_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk_T2star_UVD_median_filter.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/08_median_filter/sub-04_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_perimeter_chunk_T2star_UVD_median_filter.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/08_median_filter/sub-04_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_perimeter_chunk_T2star_UVD_median_filter.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/08_median_filter/sub-04_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk_T2star_UVD_median_filter.nii.gz",
     ], [
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/T2s/12_T2star/sub-04_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/T2s/12_T2star/sub-04_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/T2s/12_T2star/sub-04_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/T2s/12_T2star/sub-04_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz",
-    ], [
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/T1/07_register_to_T2s/sub-04_ses-T1_MP2RAGE_T1_crop_ups2X_avg_reg.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/T1/07_register_to_T2s/sub-04_ses-T1_MP2RAGE_T1_crop_ups2X_avg_reg.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/T1/07_register_to_T2s/sub-04_ses-T1_MP2RAGE_T1_crop_ups2X_avg_reg.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/T1/07_register_to_T2s/sub-04_ses-T1_MP2RAGE_T1_crop_ups2X_avg_reg.nii.gz",
-    ], [
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/03_multilaterate/sub-04_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_UV_norm_L2.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/03_multilaterate/sub-04_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_UV_norm_L2.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/03_multilaterate/sub-04_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_UV_norm_L2.nii.gz",
-    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/03_multilaterate/sub-04_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_UV_norm_L2.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/08_median_filter/sub-04_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk_T1_UVD_median_filter.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/08_median_filter/sub-04_ses-T2s_segm_rim_HG_LH_v02_borderized_multilaterate_perimeter_chunk_T1_UVD_median_filter.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/08_median_filter/sub-04_ses-T2s_segm_rim_CS_RH_v02_borderized_multilaterate_perimeter_chunk_T1_UVD_median_filter.nii.gz",
+    "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/08_median_filter/sub-04_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk_T1_UVD_median_filter.nii.gz",
     ]
 ]
 
 # Make sure that these correspond to images in VALUES
-TAGS = ["curvature_binned", "T2star", "T1", "norm_L2"]
+TAGS = ["T2star", "T1"]
 
 COORD_UV = [
     "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/03_multilaterate/sub-04_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_UV_coordinates.nii.gz",
@@ -53,7 +43,7 @@ DOMAIN =[
     "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/segmentation/03_multilaterate/sub-04_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk.nii.gz",
 ]
 
-OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/flattening/"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-04/flattening_filtered/"
 
 BINS_U = 400
 BINS_V = 400
@@ -90,10 +80,6 @@ for j in range(len(VALUES)):
         command += "-voronoi "
         command += "-norm_mask "
         command += "-output {} ".format(outname)
-
-        # Computing density once is enough
-        if j == 0:
-            command += "-density "
 
         print(command)
         subprocess.run(command, shell=True)
