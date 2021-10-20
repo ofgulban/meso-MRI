@@ -1,4 +1,4 @@
-"""Measure cortical depths using LayNii LN2_LAYERS."""
+"""Stitch collated distances for continuous distances."""
 
 import os
 import subprocess

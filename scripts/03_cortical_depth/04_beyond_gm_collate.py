@@ -1,4 +1,4 @@
-"""Measure cortical depths using LayNii LN2_LAYERS."""
+"""Collate beyond gray matter distances with cortical depth measures."""
 
 import os
 import subprocess

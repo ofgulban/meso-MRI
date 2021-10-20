@@ -1,4 +1,4 @@
-"""Measure cortical depths using LayNii LN2_LAYERS."""
+"""Measure geodesic distances to gm borders."""
 
 import os
 import subprocess

@@ -1,4 +1,4 @@
-"""Measure cortical depths using LayNii LN2_LAYERS."""
+"""Prepare files that will go into LN2_GEODISTANCE."""
 
 import os
 import subprocess
