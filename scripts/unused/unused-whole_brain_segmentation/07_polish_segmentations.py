@@ -6,7 +6,7 @@ import numpy as np
 from scipy.ndimage import morphology, generate_binary_structure
 from scipy.ndimage import gaussian_filter
 
-FILE = '/home/faruk/Documents/temp_ale/sub-02_scaled_4_seg_faruk_v1_rim.nii.gz'
+FILE = '/home/faruk/Documents/temp/sub-02_scaled_4_seg_faruk_v1_rim.nii.gz'
 
 # Load data
 nii = nb.load(FILE)
