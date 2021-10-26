@@ -83,4 +83,9 @@ for i in nii_files:
     new = nb.Nifti1Image(nii.dataobj, header=nii.header, affine=np.eye(4))
     nb.save(new, i)
 
+# TODO: Use median filter to get rid of patch flatten interpoaltion artifacts
+# fslmaths /home/faruk/data2/test-LN_RAGRUG/sub-04_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk_curvature_binned_flat_400x400_voronoi.nii.gz
+#  -kernel boxv3 5 5 11 -fmedian
+# /home/faruk/data2/test-LN_RAGRUG/sub-04_ses-T2s_segm_rim_HG_RH_v02_borderized_multilaterate_perimeter_chunk_curvature_binned_flat_400x400_voronoi_median_boxv_5-5-11.nii.gz
+
 print('Finished.\n')
