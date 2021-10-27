@@ -1,11 +1,11 @@
 # Meso-MRI (work in progress...)
-Supplementary material for <title here> <bioarxiv link here>.
+Supplementary material for <<title here>> <<bioarxiv link here>>.
 
 Processing scripts for vivo mesoscopic MRI at 0.35 mm isotropic resolution.
 
 ## Citation
 
-<Bioarxiv link here>
+<<Bioarxiv link here>>
 
 ## Dependencies
 
