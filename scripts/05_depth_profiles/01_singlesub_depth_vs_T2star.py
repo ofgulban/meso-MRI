@@ -182,6 +182,7 @@ for s in SUBJ_ID:
         ax[i].text(150+1, median_line_x + 1, '{:.1f}'.format(median_x),
                    fontsize=10, color="white")
 
+        # ---------------------------------------------------------------------
         # X axis break points
         ax[i].plot((50, 50), (0, 100), '-', linewidth=1.5,
                    color=[100/255, 149/255, 237/255])
