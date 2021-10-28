@@ -79,9 +79,9 @@ for j in range(len(FIG_DATA)):  # Loop across individual subjects
         # ---------------------------------------------------------------------
         # Line plots
         ax[i].plot(bins[:-1] + (bins[1] - bins[0]) / 2, depvar_lobo,
-                   linewidth=0.5, color="red")
+                   linewidth=0.5, color=[66/255, 122/255, 183/255])
         ax[i].plot(bins[:-1] + (bins[1] - bins[0]) / 2, depvar_hibo,
-                   linewidth=0.5, color="red")
+                   linewidth=0.5, color=[66/255, 122/255, 183/255])
         ax[i].plot(bins[:-1] + (bins[1] - bins[0]) / 2, depvar_median,
                    linewidth=0.5, color="white")
 

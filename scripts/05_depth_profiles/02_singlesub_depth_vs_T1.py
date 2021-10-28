@@ -5,6 +5,7 @@ import copy
 import numpy as np
 import nibabel as nb
 import matplotlib.pyplot as plt
+import cmocean
 import colorcet as cc
 
 SUBJ_ID = ["sub-01", "sub-02", "sub-03", "sub-04", "sub-05"]
@@ -145,7 +146,7 @@ for s in SUBJ_ID:
         img[50:150, :] = fig_data[TAGS[i]]["GM"]["Hist2D"]
         img[150:200, :] = fig_data[TAGS[i]]["CSF"]["Hist2D"]
 
-        panel = ax[i].imshow(img.T, origin="lower", cmap=cc.cm.fire,
+        panel = ax[i].imshow(img.T, origin="lower", cmap=cmocean.cm.ice,
                              interpolation="none", aspect="auto",
                              vmin=0, vmax=600, extent=(0, 200, 0, 100))
 
