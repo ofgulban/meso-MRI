@@ -1,10 +1,9 @@
 ![fig-intro](https://user-images.githubusercontent.com/4668327/143470307-0b281a46-edc0-4e76-8c97-ac85cecceca1.png)
 
-
 # Mesoscopic quantification of cortical architecture in the living human brain
 Data processing scripts for <<title here>> <<bioarxiv link here>>.
 
-See <https://osf.io/n5bj7/> for the Supplementary Data, Figures, and Animations.
+See <https://osf.io/n5bj7/> for the _Supplementary Data_, _Figures_, and _Animations_.
   
 ## Citation
 <<Bioarxiv link here>>
