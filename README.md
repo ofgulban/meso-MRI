@@ -7,7 +7,7 @@ Data processing scripts for <<title here>> <<bioarxiv link here>>.
 See <https://osf.io/n5bj7/> for the _Supplementary Data_, _Figures_, and _Animations_.
   
 ## Citation
-<<Bioarxiv link here>>
+- [Preprint] Gulban, O. F., Bollmann, S., Huber, R., Wagstyl, K., Goebel, R., Poser, B. A., Kay, K., & Ivanov, D. (2021). Mesoscopic Quantification of Cortical Architecture in the Living Human Brain. BioRxiv. <<https://doi.org/10.1101/2021.11.25.470023>>
 
 ## Dependencies
 
