@@ -1,4 +1,4 @@
-"""Flatten several values into a chunky disk."""
+"""Flatten several values into a cylinder (aka virtual Petri dish)."""
 
 import os
 import subprocess
@@ -54,6 +54,7 @@ DOMAIN =[
 ]
 
 OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/flattening/"
+LAYNIIDIR = "/home/faruk/Git/LAYNII/"
 
 BINS_U = 400
 BINS_V = 400
@@ -79,7 +80,7 @@ for j in range(len(VALUES)):
         outname = os.path.join(OUTDIR, "{}_{}.{} ".format(basename, tag, ext))
 
         # Layers and middle gray matter
-        command = "/home/faruk/Git/LAYNII/LN2_PATCH_FLATTEN "
+        command = os.path.join(LAYNIIDIR, "LN2_PATCH_FLATTEN ")
         command += "-values {} ".format(values)
         command += "-coord_uv {} ".format(coord_uv)
         command += "-coord_d {} ".format(coord_d)
@@ -99,6 +100,7 @@ for j in range(len(VALUES)):
         subprocess.run(command, shell=True)
         print()
 
+# -----------------------------------------------------------------------------
 # Make sform qform of flat niftis identity matrix
 nii_files = glob.glob(os.path.join(OUTDIR, "*.nii*"))
 for i in nii_files:

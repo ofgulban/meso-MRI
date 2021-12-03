@@ -1,4 +1,4 @@
-"""Separate scoops of interest (SOI)."""
+"""Compute UV coordinates of gray matter voxels."""
 
 import os
 import subprocess
@@ -18,6 +18,7 @@ CENTROIDS = [
 ]
 
 OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/sub-01/segmentation/03_multilaterate"
+LAYNIIDIR = "/home/faruk/Git/LAYNII/"
 
 # -----------------------------------------------------------------------------
 # Output directory
@@ -35,7 +36,7 @@ for i in range(len(RIMS)):
     outname = os.path.join(OUTDIR, "{}_multilaterate.{} ".format(basename, ext))
 
     # Layers and middle gray matter
-    command = "/home/faruk/Git/LAYNII/LN2_MULTILATERATE "
+    command = os.path.join(LAYNIIDIR, "LN2_MULTILATERATE ")
     command += "-rim {} ".format(rim)
     command += "-control_points {} ".format(centroid)
     command += "-radius 15 "
