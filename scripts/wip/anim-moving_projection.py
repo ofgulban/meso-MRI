@@ -4,43 +4,46 @@ import numpy as np
 import nibabel as nb
 
 # Scalar file (e.g. activtion map or anatomical image)
-FILE1 = "/home/faruk/data2/test-LGN/full16_100um_optbal_roi_zoomed.nii.gz"
+FILE0 = "/home/faruk/gdrive/test-LGN/full16_100um_optbal_LGN_RH_roi.nii.gz"
 
 # Flat coordinates (UV) and depth
-FILE2 = "/home/faruk/data2/test-LGN/LGN_RH_zoomed_borders_coordUV.nii.gz"
-FILE3 = "/home/faruk/data2/test-LGN/LGN_RH_zoomed_borders_coordW.nii.gz"
+FILE1 = "/home/faruk/gdrive/test-LGN/LGN_RH_roi_borders_coord1_zero_crossing_geodistance_normalized_signed.nii.gz"
+FILE2 = "/home/faruk/gdrive/test-LGN/LGN_RH_roi_borders_coord2_zero_crossing_geodistance_normalized_signed.nii.gz"
+FILE3 = "/home/faruk/gdrive/test-LGN/LGN_RH_roi_borders_coord3_zero_crossing_geodistance_normalized_signed.nii.gz"
 
 # Mask
-MASK = "/home/faruk/data2/test-LGN/LGN_RH_zoomed.nii.gz"
+MASK = "/home/faruk/gdrive/test-LGN/LGN_RH_roi.nii.gz"
 
-OUTFILE = "/home/faruk/data2/test-LGN/anim-test.nii.gz"
+OUTFILE = "/home/faruk/gdrive/test-LGN/anim-test.nii.gz"
 
-NR_STEPS = 100
+NR_STEPS = 50
 
 # -----------------------------------------------------------------------------
 # Load data
-nii1 = nb.load(FILE1)
+nii1 = nb.load(FILE0)
 
 mask = nb.load(MASK).get_fdata()
 mask = mask == 1
 
-data1 = nii1.get_fdata() * mask
-data2 = nb.load(FILE2).get_fdata()
+data0 = nii1.get_fdata() * mask
+data1 = nb.load(FILE1).get_fdata() * mask
+data2 = nb.load(FILE2).get_fdata() * mask
 data3 = nb.load(FILE3).get_fdata() * mask
 
 # Prepare coordinates
-dims = data1.shape
+dims = data0.shape
 coords_xyz = np.asarray(np.indices(dims))
 coords_xyz = np.transpose(coords_xyz, [1, 2, 3, 0])
 
-coords_uvd = np.zeros(data1.shape + (3,))
-coords_uvd[..., 0:2] = data2
-coords_uvd[..., 2] = data3
+coords_uvd = np.zeros(data0.shape + (3,))
+coords_uvd[..., 0] = data2
+coords_uvd[..., 1] = data3
+coords_uvd[..., 2] = data1
 
 # Adjust UVD coordinate range to fit in the data image matrix
-coords_uvd[..., 0] *= -1
-coords_uvd[..., 1] *= -1
-coords_uvd[..., 2] *= -1
+coords_uvd[..., 0] *= 1
+coords_uvd[..., 1] *= 1
+coords_uvd[..., 2] *= 1
 
 coords_uvd[..., 0] = coords_uvd[..., 0] - np.min(coords_uvd[..., 0])
 coords_uvd[..., 1] = coords_uvd[..., 1] - np.min(coords_uvd[..., 1])
@@ -53,6 +56,10 @@ coords_uvd[..., 2] = coords_uvd[..., 2] / (np.max(coords_uvd[..., 2]) + 0.0001)
 coords_uvd[..., 0] = coords_uvd[..., 0] * dims[0]
 coords_uvd[..., 1] = coords_uvd[..., 1] * dims[1]
 coords_uvd[..., 2] = coords_uvd[..., 2] * dims[2]
+
+coords_uvd[..., 0] = coords_uvd[..., 0] / 2 + (dims[0] / 4)
+coords_uvd[..., 1] = coords_uvd[..., 1] / 2 + (dims[1] / 4)
+coords_uvd[..., 2] = coords_uvd[..., 2] / 2 + (dims[2] / 4)
 
 # -----------------------------------------------------------------------------
 # Interpolate voxel particle tractories
@@ -80,7 +87,7 @@ for i in range(nr_voxels):
         new_idx1 = int(traj[i, j, 1])
         new_idx2 = int(traj[i, j, 2])
         # Move voxels like particles
-        new_data[new_idx0, new_idx1, new_idx2, j] += data1[idx0, idx1, idx2]
+        new_data[new_idx0, new_idx1, new_idx2, j] += data0[idx0, idx1, idx2]
         count[new_idx0, new_idx1, new_idx2, j] += 1
 
 # Normalize summed values with counts to attain mean
