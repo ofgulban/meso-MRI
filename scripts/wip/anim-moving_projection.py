@@ -6,22 +6,15 @@ import nibabel as nb
 # Scalar file (e.g. activtion map or anatomical image)
 FILE0 = "/home/faruk/data2/test-LGN/full16_100um_optbal_LGN_RH_roi.nii.gz"
 
-# -----------------------------------------------------------------------------
 # Flat coordinates (UV) and depth
-FILE1 = "/home/faruk/data2/test-LGN/LGN_RH_roi_borders_coord1_zero_crossing_geodistance_signed_normalizedByBorder.nii.gz"
-FILE2 = "/home/faruk/data2/test-LGN/LGN_RH_roi_borders_coord2_zero_crossing_geodistance_signed_normalizedByBorder.nii.gz"
-FILE3 = "/home/faruk/data2/test-LGN/LGN_RH_roi_borders_coord3_zero_crossing_geodistance_signed_normalizedByBorder.nii.gz"
-
-# -----------------------------------------------------------------------------
-FILE1 = "/home/faruk/data2/test-LGN/LGN_RH_roi_borders_coord1_zero_crossing_geodistance_signed_normalizedByBorder_sqr.nii.gz"
-FILE2 = "/home/faruk/data2/test-LGN/LGN_RH_roi_borders_coord2_zero_crossing_geodistance_signed_normalizedByBorder_sqr.nii.gz"
-FILE3 = "/home/faruk/data2/test-LGN/LGN_RH_roi_borders_coord3_zero_crossing_geodistance_signed_normalizedByBorder_sqr.nii.gz"
-# -----------------------------------------------------------------------------
+FILE1 = "/home/faruk/data2/test-LGN/LGN_RH_roi_borders_coord1_zero_crossing_geodistance_signed_pointNormalized.nii.gz"
+FILE2 = "/home/faruk/data2/test-LGN/LGN_RH_roi_borders_coord2_zero_crossing_geodistance_signed_pointNormalized.nii.gz"
+FILE3 = "/home/faruk/data2/test-LGN/LGN_RH_roi_borders_coord3_zero_crossing_geodistance_signed_pointNormalized.nii.gz"
 
 # Mask
 MASK = "/home/faruk/data2/test-LGN/LGN_RH_roi.nii.gz"
 
-OUTFILE = "/home/faruk/data2/test-LGN/anim-test2.nii.gz"
+OUTFILE = "/home/faruk/data2/test-LGN/anim-test3.nii.gz"
 
 NR_STEPS = 50
 
@@ -64,9 +57,9 @@ coords_uvd[..., 0] = coords_uvd[..., 0] * dims[0]
 coords_uvd[..., 1] = coords_uvd[..., 1] * dims[1]
 coords_uvd[..., 2] = coords_uvd[..., 2] * dims[2]
 
-coords_uvd[..., 0] = coords_uvd[..., 0] / 2 + (dims[0] / 4)
-coords_uvd[..., 1] = coords_uvd[..., 1] / 2 + (dims[1] / 4)
-coords_uvd[..., 2] = coords_uvd[..., 2] / 2 + (dims[2] / 4)
+# coords_uvd[..., 0] = coords_uvd[..., 0] / 2 + (dims[0] / 4)
+# coords_uvd[..., 1] = coords_uvd[..., 1] / 2 + (dims[1] / 4)
+# coords_uvd[..., 2] = coords_uvd[..., 2] / 2 + (dims[2] / 4)
 
 # -----------------------------------------------------------------------------
 # Interpolate voxel particle tractories
