@@ -23,7 +23,9 @@ See <https://osf.io/n5bj7/> for the _Supplementary Data_, _Figures_, and _Animat
 | - [matplotlib](http://matplotlib.org/)                  | 3.1.1          |
 
 ## Data processing overview
-Please refer to the Methods section of my paper, and the flowcharts inluded here to see what each python script is doing.
+Please refer to the Methods section of my paper, and the flowcharts inluded here to see what each python script is doing. There are 2 important steps to run any script:
+1. Check top level input file paths within each script.
+2. Execute scripts in your command line by running e.g. `python ./04_motion_correct.py`.
 
 ### T2* (MEGRE) data
 ![MEGRE](/flowcharts/flowchart-MEGRE.png)
