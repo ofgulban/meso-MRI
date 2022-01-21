@@ -22,5 +22,13 @@ See <https://osf.io/n5bj7/> for the _Supplementary Data_, _Figures_, and _Animat
 | - [NiBabel](http://nipy.org/nibabel/)                   | 2.5.1          |
 | - [matplotlib](http://matplotlib.org/)                  | 3.1.1          |
 
+## Data processing overview
+Please refer to the Methods section of my paper, and the flowcharts inluded here to see what each python script is doing.
+### MEGRE data
+![megre](/flowcharts/flowchart-MEGRE.png)
+
+### MP2RAGE data
+TODO
+
 ## License
 The project is licensed under [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause).
