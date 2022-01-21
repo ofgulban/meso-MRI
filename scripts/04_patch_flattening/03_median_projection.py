@@ -1,4 +1,4 @@
-"""Columnar median filter."""
+"""Median projection across depths/layers."""
 
 import os
 import subprocess
