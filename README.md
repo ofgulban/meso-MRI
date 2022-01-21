@@ -27,5 +27,8 @@ Please refer to the Methods section of my paper, and the flowcharts inluded here
 ### MEGRE data
 ![megre](/flowcharts/flowchart-MEGRE.png)
 
+### MP2RAGE data
+TODO
+
 ## License
 The project is licensed under [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause).
