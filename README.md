@@ -24,11 +24,12 @@ See <https://osf.io/n5bj7/> for the _Supplementary Data_, _Figures_, and _Animat
 
 ## Data processing overview
 Please refer to the Methods section of my paper, and the flowcharts inluded here to see what each python script is doing.
+
 ### MEGRE data
-![megre](/flowcharts/flowchart-MEGRE.png)
+![MEGRE](/flowcharts/flowchart-MEGRE.png)
 
 ### MP2RAGE data
-TODO
+![MP2RAGE](/flowcharts/flowchart-MP2RAGE.png)
 
-## License
+# License
 The project is licensed under [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause).
