@@ -7,8 +7,8 @@ import pyvista as pv
 import nibabel as nb
 
 # Scalar file (e.g. activtion map or anatomical image)
-FILE1 = "/home/faruk/data2/ISMRM-2022/anim-bigbrain/anim_prep/scene-bigbrain_staircase_shot-1.nii.gz"
-OUTDIR = "/home/faruk/data2/ISMRM-2022/anim-bigbrain/anim_frames/scene-invivo_staircase_shot-1"
+FILE1 = "/home/faruk/data2/ISMRM-2022/anim-bigbrain/anim_prep/scene-bigbrain_staircase_shot-2.nii.gz"
+OUTDIR = "/home/faruk/data2/ISMRM-2022/anim-bigbrain/anim_frames/scene-invivo_staircase_shot-2"
 
 # MIN, MAX = 20, 45
 MIN, MAX = 40000, 55000
@@ -31,7 +31,7 @@ nr_frames = data.shape[-1]
 # Establish frame ordering
 frame_order = np.arange(nr_frames)
 # Freeze animation
-frame_order = np.hstack([frame_order, np.repeat(frame_order[-1], 6*3)])
+frame_order = np.hstack([frame_order, np.repeat(frame_order[-1], 6*5)])
 # Reverse animation
 frame_order = np.hstack([frame_order, frame_order[::-1]])
 
