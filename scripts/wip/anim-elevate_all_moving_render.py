@@ -7,13 +7,15 @@ import pyvista as pv
 import nibabel as nb
 
 # Scalar file (e.g. activtion map or anatomical image)
-FILE1 = "/home/faruk/data2/ISMRM-2022/anim-slice_slide/anim_prep/scene-invivo_pizza_shot-1.nii.gz"
-OUTDIR = "/home/faruk/data2/ISMRM-2022/anim-slice_slide/anim_frames/scene-invivo_pizza_shot-1"
+FILE1 = "/home/faruk/data2/ISMRM-2022/anim-bigbrain/anim_prep/scene-bigbrain_staircase_shot-1.nii.gz"
+OUTDIR = "/home/faruk/data2/ISMRM-2022/anim-bigbrain/anim_frames/scene-invivo_staircase_shot-1"
 
-MIN, MAX = 20, 45
+# MIN, MAX = 20, 45
+MIN, MAX = 40000, 55000
 BACKGROUND = "black"
 RESOLUTION = (720, 720)
 CMAP = "gray"
+TITLE = ""
 
 # -----------------------------------------------------------------------------
 # Output directory
@@ -29,7 +31,7 @@ nr_frames = data.shape[-1]
 # Establish frame ordering
 frame_order = np.arange(nr_frames)
 # Freeze animation
-frame_order = np.hstack([frame_order, np.repeat(frame_order[-1], 6)])
+frame_order = np.hstack([frame_order, np.repeat(frame_order[-1], 6*3)])
 # Reverse animation
 frame_order = np.hstack([frame_order, frame_order[::-1]])
 
@@ -56,7 +58,7 @@ for i, j in enumerate(frame_order):
     p.add_volume(temp, cmap=CMAP, opacity=opacity)
     p.remove_scalar_bar()
     p.set_background(BACKGROUND)
-    p.add_text("Pizzaplot", font="courier", font_size=18)
+    p.add_text(TITLE, font="courier", font_size=16)
 
     out_name = "frame-{}.png".format(str(i).zfill(3))
     p.screenshot(os.path.join(OUTDIR, out_name))

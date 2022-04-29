@@ -3,14 +3,13 @@
 import numpy as np
 import nibabel as nb
 
-FILE1 = "/home/faruk/data2/ISMRM-2022/anim-slice_slide/data/sub-04_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk_T2star_UVD_median_filter_flat_100x100_voronoi.nii.gz"
+FILE1 = "/home/faruk/data2/ISMRM-2022/anim-bigbrain/data/full16_100um_optbal_roi_roi_flat_150x150_voronoi_median_filter_11-11-1.nii.gz"
 
-OUTFILE = "/home/faruk/data2/ISMRM-2022/anim-slice_slide/anim_prep/scene-invivo_pizza_shot-1.nii.gz"
+OUTFILE = "/home/faruk/data2/ISMRM-2022/anim-bigbrain/anim_prep/scene-bigbrain_staircase_shot-1.nii.gz"
 
 # Data range
 NR_STEPS = 24*2
-NR_PIZZA_LAYERS = 8
-MODULUS = 4
+NR_SECTIONS = 7
 
 # =============================================================================
 # Get data
@@ -36,30 +35,25 @@ i, j = np.meshgrid(x, y)
 i = (i - np.min(i[mask])) / (np.max(i[mask]) - np.min(i[mask]))
 j = (j - np.min(j[mask])) / (np.max(j[mask]) - np.min(j[mask]))
 
-# Compute centroid
-center_x = (np.max(i[mask]) - np.min(i[mask])) / 2
-center_y = (np.max(j[mask]) - np.min(j[mask])) / 2
+# Compute dist
+indices = np.stack((i, j), axis=2)
+dist = indices[..., 0]  # select x
+# dist = indices[..., 1]  # select y
+dist[dist == 0] = np.min(dist[dist > 0])
+dist[~mask] = 0
 
-# Compute norm
-indices = np.stack((i-center_x, j-center_y), axis=2)
-indices.shape
-
-angle = np.arctan2(indices[..., 0], indices[..., 1]) + np.pi
-angle[~mask] = 0
-
-# Quantize norm
-angle /= angle.max()
-angle *= -NR_PIZZA_LAYERS
-angle = np.floor(angle)
-angle[mask] = angle[mask] + NR_PIZZA_LAYERS
-angle %= MODULUS  # generate alternating pattern
-angle = np.repeat(angle[..., None], dims[2], axis=2)
+# Quantize dist
+dist /= dist.max()
+dist *= -NR_SECTIONS
+dist = np.floor(dist)
+dist[mask] = dist[mask] + NR_SECTIONS
+dist = np.repeat(dist[..., None], dims[2], axis=2)
 
 # -----------------------------------------------------------------------------
 # New z coordinates
 coords_new = np.copy(coords_xyz)
-for i in range(1, NR_PIZZA_LAYERS+1):
-    coords_new[angle == i, 2] += i * nr_layers
+for i in range(1, NR_SECTIONS+1):
+    coords_new[dist == i, 2] += i * nr_layers
 coords_new = np.round(coords_new)
 
 # -----------------------------------------------------------------------------
@@ -80,7 +74,7 @@ print()
 # -----------------------------------------------------------------------------
 # Transform volume data
 print("Transforming volume data...")
-new_data = np.zeros([dims[0], dims[1], dims[2]*MODULUS, NR_STEPS])
+new_data = np.zeros([dims[0], dims[1], dims[2]*NR_SECTIONS, NR_STEPS])
 count = np.copy(new_data)
 for i in range(nr_voxels):
     print("  {}/{}".format(i+1, nr_voxels), end="\r")
