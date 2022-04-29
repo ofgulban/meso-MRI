@@ -5,7 +5,7 @@ import nibabel as nb
 
 FILE1 = "/home/faruk/data2/ISMRM-2022/anim-slice_slide/data/sub-04_ses-T2s_segm_rim_CS_LH_v02_borderized_multilaterate_perimeter_chunk_T2star_UVD_median_filter_flat_100x100_voronoi.nii.gz"
 
-OUTFILE = "/home/faruk/data2/ISMRM-2022/anim-slice_slide/anim_prep/scene-invivo_pizza_shot-3.nii.gz"
+OUTFILE = "/home/faruk/data2/ISMRM-2022/anim-slice_slide/anim_prep/scene-invivo_staircase_shot-3.nii.gz"
 
 # Data range
 NR_STEPS = 24*2
