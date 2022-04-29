@@ -7,8 +7,8 @@ import pyvista as pv
 import nibabel as nb
 
 # Scalar file (e.g. activtion map or anatomical image)
-FILE1 = "/home/faruk/data2/DATA_MRI_NIFTI/derived/movies/test_cakeplot/test-cakeplot_moving.nii.gz"
-OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/movies/test_cakeplot/frames"
+FILE1 = "/home/faruk/data2/ISMRM-2022/anim-slice_slide/anim_prep/scene-invivo_shot-1.nii.gz"
+OUTDIR = "/home/faruk/data2/ISMRM-2022/anim-slice_slide/anim_frames/scene-invivo_shot-1"
 
 MIN, MAX = 20, 45
 BACKGROUND = "black"
@@ -16,11 +16,21 @@ RESOLUTION = (720, 720)
 CMAP = "gray"
 
 # -----------------------------------------------------------------------------
+# Output directory
+if not os.path.exists(OUTDIR):
+    os.makedirs(OUTDIR)
+print("  Output directory: {}".format(OUTDIR))
+
+# -----------------------------------------------------------------------------
 # Load data
 data = nb.load(FILE1).get_fdata()
 nr_frames = data.shape[-1]
 
+# Establish frame ordering
 frame_order = np.arange(nr_frames)
+# Freeze animation
+frame_order = np.hstack([frame_order, np.repeat(frame_order[-1], 6)])
+# Reverse animation
 frame_order = np.hstack([frame_order, frame_order[::-1]])
 
 # -----------------------------------------------------------------------------
@@ -54,4 +64,4 @@ for i, j in enumerate(frame_order):
 
 p.close()
 
-print("Finished.")
+print("\nFinished.")
