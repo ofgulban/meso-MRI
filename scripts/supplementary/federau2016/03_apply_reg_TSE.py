@@ -1,4 +1,4 @@
-"""Register Lusebrink images to their 0.25 mm iso T1w data.
+"""Register Federau images to their 0.25 mm iso MP2RAGE UNI (T1w) data.
 
 I have used ITKSNAP v3.8.0 registration menu with a C shaped segmentation mask
 around the outer edges of the occipical cortex to compute the transformation
@@ -8,11 +8,11 @@ matrix. I have used "rigid" option.
 import os
 import subprocess
 
-TARGET = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/derived/derivatives_sub-yv98_250um_averages_sub-yv98_ses-3512+3555+3589+3637+3681_offline_reconstruction_denoised-BM4D-manual_T1w_biasCorrected_crop_ups2X.nii.gz"
-MOVING = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/source/sub-yv98_ses-3777_anat_sub-yv98_ses-3777_T2w.nii.gz"
-AFFINE = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/derived/sub-yv97_T2w_to_T1w_v01.txt"
+TARGET = "/home/faruk/data2/DATA_MRI_NIFTI/data-federau2016/derived/sub-federau2016_MP2RAGE350_crop_ups2X.nii.gz"
+MOVING = "/home/faruk/data2/DATA_MRI_NIFTI/data-federau2016/source/sub-federau2016_TSE380_flipX.nii.gz"
+AFFINE = "/home/faruk/data2/DATA_MRI_NIFTI/data-federau2016/derived/sub-federau2016_TSE_to_UNI_v01.txt"
 
-OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/derived/"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/data-federau2016/derived"
 
 # -------------------------------------------------------------------------
 # Apply affine transformation matrix

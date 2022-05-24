@@ -8,11 +8,11 @@ matrix. I have used "affine" option.
 import os
 import subprocess
 
-TARGET = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/derived/derivatives_sub-yv98_250um_averages_sub-yv98_ses-3512+3555+3589+3637+3681_offline_reconstruction_denoised-BM4D-manual_T1w_biasCorrected_crop_ups2X.nii.gz"
-MOVING = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/source/sub-yv98_ses-3568_anat_sub-yv98_ses-3568_ToF.nii.gz"
-AFFINE = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/derived/sub-yv97_TOF250um_to_T1w_v01.txt"
+TARGET = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink2021/derived/derivatives_sub-yv98_250um_averages_sub-yv98_ses-3512+3555+3589+3637+3681_offline_reconstruction_denoised-BM4D-manual_T1w_biasCorrected_crop_ups2X.nii.gz"
+MOVING = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink2021/source/sub-yv98_ses-3943_anat_sub-yv98_ses-3943_ToF.nii.gz"
+AFFINE = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink2021/derived/sub-yv97_TOF150um_to_T1w_v01.txt"
 
-OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/derived/"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink2021/derived/"
 
 # -------------------------------------------------------------------------
 # Apply affine transformation matrix

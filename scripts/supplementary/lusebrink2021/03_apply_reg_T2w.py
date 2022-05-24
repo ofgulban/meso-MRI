@@ -2,17 +2,17 @@
 
 I have used ITKSNAP v3.8.0 registration menu with a C shaped segmentation mask
 around the outer edges of the occipical cortex to compute the transformation
-matrix. I have used "affine" option.
+matrix. I have used "rigid" option.
 """
 
 import os
 import subprocess
 
-TARGET = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/derived/derivatives_sub-yv98_250um_averages_sub-yv98_ses-3512+3555+3589+3637+3681_offline_reconstruction_denoised-BM4D-manual_T1w_biasCorrected_crop_ups2X.nii.gz"
-MOVING = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/source/derivatives_sub-yv98_QSM_sub-yv98_ses-4088+4137_QSM_magn.nii.gz"
-AFFINE = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/derived/sub-yv97_QSM_to_T1w_v01.txt"
+TARGET = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink2021/derived/derivatives_sub-yv98_250um_averages_sub-yv98_ses-3512+3555+3589+3637+3681_offline_reconstruction_denoised-BM4D-manual_T1w_biasCorrected_crop_ups2X.nii.gz"
+MOVING = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink2021/source/sub-yv98_ses-3777_anat_sub-yv98_ses-3777_T2w.nii.gz"
+AFFINE = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink2021/derived/sub-yv97_T2w_to_T1w_v01.txt"
 
-OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/derived/"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink2021/derived/"
 
 # -------------------------------------------------------------------------
 # Apply affine transformation matrix

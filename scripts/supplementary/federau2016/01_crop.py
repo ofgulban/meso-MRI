@@ -7,19 +7,17 @@ import nibabel as nb
 
 # =============================================================================
 NII_NAMES = [
-    "/home/faruk/gdrive/paper-350_micron/data-lusebrink/derivatives_sub-yv98_250um_averages_sub-yv98_ses-3512+3555+3589+3637+3681_offline_reconstruction_denoised-BM4D-manual_T1w_biasCorrected.nii.gz"
+    "/home/faruk/data2/DATA_MRI_NIFTI/data-federau2016/source/sub-federau2016_MP2RAGE350.nii.gz"
     ]
 
-OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/data-lusebrink/derived"
+OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/data-federau2016/derived"
 
 # sub=yv98_250um_t1w
-RANGE_X = [42, 590-42]  # xmin xsize
-RANGE_Y = [50, 572-50]  # ymin ysize
-RANGE_Z = [350, 590-350]  # zmin, zsize
+RANGE_X = [20, 410-20]  # xmin xsize
+RANGE_Y = [10, 370-10]  # ymin ysize
+RANGE_Z = [100, 260-100]  # zmin, zsize
 
 # =============================================================================
-print("MP2RAGE Step 01: Crop region of interest.")
-
 # Output directory
 if not os.path.exists(OUTDIR):
     os.makedirs(OUTDIR)
