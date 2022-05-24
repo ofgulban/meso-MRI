@@ -2,7 +2,7 @@
 
 I have used ITKSNAP v3.8.0 registration menu with a C shaped segmentation mask
 around the outer edges of the occipical cortex to compute the transformation
-matrix.
+matrix. I have used "affine" option.
 """
 
 import os
