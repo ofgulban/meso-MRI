@@ -2,7 +2,7 @@
 
 I have used ITKSNAP v3.8.0 registration menu with a C shaped segmentation mask
 around the outer edges of the occipical cortex to compute the transformation
-matrix.
+matrix. I have used "affine" option.
 """
 
 import os
@@ -26,7 +26,7 @@ out_moving = os.path.join(OUTDIR, "{}_reg.nii.gz".format(basename))
 command2 = "greedy "
 command2 += "-d 3 "
 command2 += "-rf {} ".format(TARGET)  # reference
-command2 += "-ri NN "
+command2 += "-ri LINEAR "
 command2 += "-rm {} {} ".format(MOVING, out_moving)  # moving resliced
 command2 += "-r {} ".format(AFFINE)
 
