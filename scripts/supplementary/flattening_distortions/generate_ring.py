@@ -33,6 +33,8 @@ data2 = np.zeros((DIMS2[0], DIMS2[1]))
 data2[0:DIMS[0]//2, 0:DIMS[1]] = data[0:DIMS[0]//2, :]
 data2[DIMS[0]//2:, DIMS[1]*2//3:] = data[DIMS[0]//2:, :]
 
+# cv2.imwrite(OUT, data2)
+
 # -----------------------------------------------------------------------------
 # Create checkerboard pattern
 data3 = np.zeros((DIMS[0], DIMS[1]+DIMS[1]*2//3))
@@ -63,10 +65,12 @@ data4 = np.zeros((DIMS2[0], DIMS2[1]))
 data4[0:DIMS[0]//2, 0:DIMS[1]] = angles[0:DIMS[0]//2:, :]
 data4[DIMS[0]//2:, DIMS[1]*2//3:] = angles[DIMS[0]//2:, ::-1]
 
-
+data4[data2 == 0] = 0
 cv2.imwrite(OUT, data4)
 
 # -----------------------------------------------------------------------------
-# # Sample points along border Circumference = 2*pi*r
-# circum = 2 * np.pi * 450
-# circum = 2 * np.pi * 150
+# Sample points along border Circumference = 2*pi*r
+circum1 = 2 * np.pi * 450
+circum2 = 2 * np.pi * 150
+
+circum2 / circum1
