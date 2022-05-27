@@ -1,10 +1,8 @@
 """Generate halfway phase shifted ring."""
 
 import os
-import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
 
 OUTDIR = "/home/faruk/gdrive/paper-350_micron/paper_figures/revision-distortions"
 
@@ -45,7 +43,10 @@ data2[DIMS[0]//2:, DIMS[1]*2//3:] = data[DIMS[0]//2:, :]
 circum_ratio = (2 * np.pi * RADIUS_OUTER) / (2 * np.pi * RADIUS_INNER)
 SEGMENTS_INNER = 30
 SEGMENTS_OUTER = int(SEGMENTS_INNER / circum_ratio)
-SEGMENTS_MIDDLE = (SEGMENTS_INNER + SEGMENTS_OUTER) // 2
+
+circum_ratio2 = (2 * np.pi * ((RADIUS_OUTER+RADIUS_INNER)/2)) / (2 * np.pi * RADIUS_INNER)
+SEGMENTS_MIDDLE = int((SEGMENTS_INNER + circum_ratio) // 2)
+
 
 # =============================================================================
 # Generate points
@@ -53,6 +54,12 @@ def pol2cart(rho, phi):
     x = rho * np.cos(phi)
     y = rho * np.sin(phi)
     return(x, y)
+
+
+def cart2pol(x, y):
+    rho = np.sqrt(x**2 + y**2)
+    phi = np.arctan2(y, x)
+    return(rho, phi)
 
 
 rhos = np.linspace(RADIUS_INNER, RADIUS_OUTER, NR_LAYERS)
@@ -85,6 +92,7 @@ for k, r in enumerate(rhos):
 points = np.zeros((NR_LAYERS, nr_segments_outer + nr_segments_inner, 2))
 points[:, :nr_segments_outer, :] = points1
 points[:, nr_segments_outer:, :] = points2[::-1, ::-1, :]
+
 # =============================================================================
 plt.style.use('dark_background')
 
@@ -106,7 +114,7 @@ plt.axis('off')
 plt.savefig(os.path.join(OUTDIR, "1_deep_mesh.png"), bbox_inches='tight')
 
 # =============================================================================
-# =============================================================================
+# Superficial surface mesh
 # =============================================================================
 points1 = np.zeros((NR_LAYERS, nr_segments_inner, 2))
 
@@ -131,6 +139,7 @@ for k, r in enumerate(rhos):
 points = np.zeros((NR_LAYERS, nr_segments_outer + nr_segments_inner, 2))
 points[:, :nr_segments_inner, :] = points1
 points[:, nr_segments_inner:, :] = points2[::-1, ::-1, :]
+
 # =============================================================================
 fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
 
@@ -149,7 +158,7 @@ plt.axis('off')
 plt.savefig(os.path.join(OUTDIR, "2_sup_mesh.png"), bbox_inches='tight')
 
 # =============================================================================
-# =============================================================================
+# Middle surface mesh
 # =============================================================================
 points = np.zeros((NR_LAYERS, nr_segments_middle*2, 2))
 
