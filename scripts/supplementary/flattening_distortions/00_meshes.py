@@ -102,10 +102,10 @@ fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
 plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == NR_LAYERS-1:
-        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=3,
+        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=5,
                  color=[1, 0, 0])
     else:
-        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=3,
+        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=5,
                  color=[0.5, 0.5, 0.5])
 
 plt.xlim([0, DIMS2[1]])
@@ -146,10 +146,10 @@ fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
 plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == 0:
-        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=3,
+        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=5,
                  color=[0, 0.5, 1])
     else:
-        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=3,
+        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=5,
                  color=[0.5, 0.5, 0.5])
 
 plt.xlim([0, DIMS2[1]])
@@ -178,10 +178,10 @@ fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
 plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == NR_LAYERS//2:
-        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=3,
+        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=5,
                  color=[0, 1, 0])
     else:
-        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=3,
+        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=5,
                  color=[0.5, 0.5, 0.5])
 
 plt.xlim([0, DIMS2[1]])
