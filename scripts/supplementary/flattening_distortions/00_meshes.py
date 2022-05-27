@@ -47,6 +47,12 @@ SEGMENTS_OUTER = int(SEGMENTS_INNER / circum_ratio)
 circum_ratio2 = (2 * np.pi * ((RADIUS_OUTER+RADIUS_INNER)/2)) / (2 * np.pi * RADIUS_INNER)
 SEGMENTS_MIDDLE = int((SEGMENTS_INNER + circum_ratio) // 2)
 
+nr_segments_outer = 360 // SEGMENTS_OUTER
+nr_segments_inner = 360 // SEGMENTS_INNER
+nr_segments_middle = 360 // SEGMENTS_MIDDLE
+
+rhos = np.linspace(RADIUS_INNER, RADIUS_OUTER, NR_LAYERS)
+
 
 # =============================================================================
 # Generate points
@@ -62,15 +68,11 @@ def cart2pol(x, y):
     return(rho, phi)
 
 
-rhos = np.linspace(RADIUS_INNER, RADIUS_OUTER, NR_LAYERS)
-
-nr_segments_outer = 360 // SEGMENTS_OUTER
-nr_segments_inner = 360 // SEGMENTS_INNER
-nr_segments_middle = 360 // SEGMENTS_MIDDLE
-
-# -----------------------------------------------------------------------------
+# =============================================================================
+# Deep surface mesh
+# =============================================================================
+# Part 1
 points1 = np.zeros((NR_LAYERS, nr_segments_outer, 2))
-
 phis = np.linspace(np.pi, 2*np.pi, nr_segments_outer)
 for k, r in enumerate(rhos):
     for i, j in enumerate(phis):
@@ -78,9 +80,8 @@ for k, r in enumerate(rhos):
     # Adjust point coordinates to array grid coordinates
     points1[k, :, :] += center
 
-# -----------------------------------------------------------------------------
+# Part 2
 points2 = np.zeros((NR_LAYERS, nr_segments_inner, 2))
-
 phis = np.linspace(0, np.pi, nr_segments_inner)
 for k, r in enumerate(rhos):
     for i, j in enumerate(phis):
@@ -89,9 +90,9 @@ for k, r in enumerate(rhos):
     points2[k, :, :] += center
     points2[k, :, 0] += RADIUS_OUTER + RADIUS_INNER
 
-points = np.zeros((NR_LAYERS, nr_segments_outer + nr_segments_inner, 2))
-points[:, :nr_segments_outer, :] = points1
-points[:, nr_segments_outer:, :] = points2[::-1, ::-1, :]
+points_d = np.zeros((NR_LAYERS, nr_segments_outer + nr_segments_inner, 2))
+points_d[:, :nr_segments_outer, :] = points1
+points_d[:, nr_segments_outer:, :] = points2[::-1, ::-1, :]
 
 # =============================================================================
 plt.style.use('dark_background')
@@ -102,11 +103,12 @@ fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
 plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == NR_LAYERS-1:
-        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=5,
+        plt.plot(points_d[i, :, 0], points_d[i, :, 1], marker="o",
+                 markersize=5,
                  color=[1, 0, 0])
     else:
-        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=5,
-                 color=[0.5, 0.5, 0.5])
+        plt.plot(points_d[i, :, 0], points_d[i, :, 1], marker="o",
+                 markersize=5, color=[0.5, 0.5, 0.5])
 
 plt.xlim([0, DIMS2[1]])
 plt.ylim([0, DIMS2[0]])
@@ -136,9 +138,9 @@ for k, r in enumerate(rhos):
     points2[k, :, :] += center
     points2[k, :, 0] += RADIUS_OUTER + RADIUS_INNER
 
-points = np.zeros((NR_LAYERS, nr_segments_outer + nr_segments_inner, 2))
-points[:, :nr_segments_inner, :] = points1
-points[:, nr_segments_inner:, :] = points2[::-1, ::-1, :]
+points_s = np.zeros((NR_LAYERS, nr_segments_outer + nr_segments_inner, 2))
+points_s[:, :nr_segments_inner, :] = points1
+points_s[:, nr_segments_inner:, :] = points2[::-1, ::-1, :]
 
 # =============================================================================
 fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
@@ -146,11 +148,11 @@ fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
 plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == 0:
-        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=5,
-                 color=[0, 0.5, 1])
+        plt.plot(points_s[i, :, 0], points_s[i, :, 1], marker="o",
+                 markersize=5, color=[0, 0.5, 1])
     else:
-        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=5,
-                 color=[0.5, 0.5, 0.5])
+        plt.plot(points_s[i, :, 0], points_s[i, :, 1], marker="o",
+                 markersize=5, color=[0.5, 0.5, 0.5])
 
 plt.xlim([0, DIMS2[1]])
 plt.ylim([0, DIMS2[0]])
@@ -160,29 +162,29 @@ plt.savefig(os.path.join(OUTDIR, "2_sup_mesh.png"), bbox_inches='tight')
 # =============================================================================
 # Middle surface mesh
 # =============================================================================
-points = np.zeros((NR_LAYERS, nr_segments_middle*2, 2))
+points_m = np.zeros((NR_LAYERS, nr_segments_middle*2, 2))
 
 phis = np.linspace(-np.pi, np.pi, nr_segments_middle*2)
 for k, r in enumerate(rhos):
     for i, j in enumerate(phis):
-        points[k, i, :] = pol2cart(r, j)
+        points_m[k, i, :] = pol2cart(r, j)
     # Adjust point coordinates to array grid coordinates
-    points[k, :, :] += center
+    points_m[k, :, :] += center
 
-points[:, nr_segments_middle:, 0] *= -1
-points[:, nr_segments_middle:, 0] += RADIUS_OUTER*3 + RADIUS_INNER
-points[:, nr_segments_middle:, :] = points[::-1, nr_segments_middle:, :]
+points_m[:, nr_segments_middle:, 0] *= -1
+points_m[:, nr_segments_middle:, 0] += RADIUS_OUTER*3 + RADIUS_INNER
+points_m[:, nr_segments_middle:, :] = points_m[::-1, nr_segments_middle:, :]
 
 # -----------------------------------------------------------------------------
 fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
 plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == NR_LAYERS//2:
-        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=5,
-                 color=[0, 1, 0])
+        plt.plot(points_m[i, :, 0], points_m[i, :, 1], marker="o",
+                 markersize=5, color=[0, 1, 0])
     else:
-        plt.plot(points[i, :, 0], points[i, :, 1], marker="o", markersize=5,
-                 color=[0.5, 0.5, 0.5])
+        plt.plot(points_m[i, :, 0], points_m[i, :, 1], marker="o",
+                 markersize=5, color=[0.5, 0.5, 0.5])
 
 plt.xlim([0, DIMS2[1]])
 plt.ylim([0, DIMS2[0]])

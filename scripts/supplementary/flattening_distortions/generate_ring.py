@@ -122,7 +122,7 @@ cv2.imwrite(os.path.join(OUTDIR, "ideal_radii.png"), img)
 # =============================================================================
 # Flatten
 flat = np.zeros((400, 1200))
-r_min, r_max = ideal_radii[ideal_radii>0].min(), ideal_radii.max()
+r_min, r_max = ideal_radii[ideal_radii > 0].min(), ideal_radii.max()
 for i in range(DIMS2[0]):
     for j in range(DIMS2[1]):
         if data2[i, j] > 0:
