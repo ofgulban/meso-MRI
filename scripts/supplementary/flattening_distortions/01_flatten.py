@@ -3,6 +3,8 @@
 import os
 import cv2
 import numpy as np
+from scipy import ndimage
+
 
 OUTDIR = "/home/faruk/gdrive/paper-350_micron/paper_figures/revision-distortions"
 
@@ -13,7 +15,9 @@ RADIUS_INNER = 150
 
 NR_LAYERS = 21
 
-FLAT_DIMS = 400, 1200
+FLAT_DIMS = 320, 960
+
+KAYCUBE_FACTOR = 32
 
 # -----------------------------------------------------------------------------
 # Compute circumference ratio of equal line segments
@@ -59,10 +63,9 @@ data2[DIMS[0]//2:, DIMS[1]*2//3:] = data[DIMS[0]//2:, :]
 # -----------------------------------------------------------------------------
 # Create checkerboard pattern
 data3 = np.zeros((DIMS[0], DIMS[1]+DIMS[1]*2//3))
-FACTOR = 32
 for i in range(DIMS2[0]):
     for j in range(DIMS2[1]):
-        x, y = i // FACTOR, j // FACTOR
+        x, y = i // KAYCUBE_FACTOR, j // KAYCUBE_FACTOR
 
         if (x % 2 == 0) and (y % 2 == 0):
             data3[i, j] = 50
@@ -194,12 +197,25 @@ for i in range(DIMS2[0]):
             y = ideal_angles[i, j] / (2*np.pi) * (flat_i.shape[1]-1)
             flat_i[int(x), int(y)] = data3[i, j]
 
-cv2.imwrite(os.path.join(OUTDIR, "flat-0_ideal.png"), flat_i)
+cv2.imwrite(os.path.join(OUTDIR, "flat-0_ideal1.png"), flat_i)
+
+# Quick fill in with median
+img = ndimage.median_filter(flat_i, size=5)
+flat_i[~(flat_i != 0)] = img[~(flat_i != 0)]
+cv2.imwrite(os.path.join(OUTDIR, "flat-0_ideal2.png"), flat_i)
+
+# (Optional) Emulate voxel based subsampling
+flat_v = ndimage.zoom(flat_i, 1./(KAYCUBE_FACTOR/24), mode="reflect",
+                      order=0, prefilter=False)
+flat_v = ndimage.zoom(flat_v, KAYCUBE_FACTOR/4, mode="reflect",
+                      order=0, prefilter=False)
+cv2.imwrite(os.path.join(OUTDIR, "flat-4_voxel.png"), flat_v)
 
 # -----------------------------------------------------------------------------
 # Deep mesh
 # -----------------------------------------------------------------------------
 flat_d = np.zeros(FLAT_DIMS)
+dims = flat_d.shape
 r_min, r_max = ideal_radii[ideal_radii > 0].min(), ideal_radii.max()
 
 nr_depths = points_d.shape[0]
@@ -219,14 +235,24 @@ for d in range(nr_depths):
         x = (ideal_radii[i, j]-r_min) / (r_max-r_min) * (flat_d.shape[0]-1)
         y = ideal_angles[i, j] / (2*np.pi) * (flat_d.shape[1]-1)
 
-        points_uv[d, p, :] = x, y  # Useful for filling in later
-        flat_d[int(x), int(y)] = data3[i, j]
+        # Adjust for flattening mesh geodesics
+        g = circum_ratio + 1
+        f = dims[1]//2
+        if y < dims[1]//2:
+            f = dims[1]//2
+            z = int((y / f) * dims[1]/g*(g-1))
+        else:
+            f = dims[1]//2
+            z = ((y - f) / f) * (dims[1]/g)
+            z = int(z + dims[1]/g*(g-1))
+
+        points_uv[d, p, :] = x, z  # Useful for filling in later
+        flat_d[int(x), int(z)] = data3[i, j]
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-1_deep1.png"), flat_d)
 
 # -----------------------------------------------------------------------------
 # Fill-in
-dims = flat_d.shape
 new = np.zeros(flat_d.shape)
 
 for i in range(dims[0]):
@@ -273,8 +299,19 @@ for d in range(nr_depths):
         x = (ideal_radii[i, j]-r_min) / (r_max-r_min) * (flat_s.shape[0]-1)
         y = ideal_angles[i, j] / (2*np.pi) * (flat_s.shape[1]-1)
 
-        points_uv[d, p, :] = x, y  # Useful for filling in later
-        flat_s[int(x), int(y)] = data3[i, j]
+        # ---------------------------------------------------------------------
+        # Adjust for flattening mesh geodesics
+        g = circum_ratio + 1
+        f = dims[1]//2
+        if y < dims[1]//2:
+            z = int((y / f) * (dims[1]/g))
+        else:
+            z = ((y - f) / f) * (dims[1]/g*(g-1))
+            z = int(z + dims[1]/g)
+        # ---------------------------------------------------------------------
+
+        points_uv[d, p, :] = x, z  # Useful for filling in later
+        flat_s[int(x), int(z)] = data3[i, j]
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-2_superficial1.png"), flat_s)
 
@@ -300,7 +337,6 @@ for i in range(dims[0]):
         new[i, j] = data3[int(x), int(y)]
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-2_superficial2.png"), new)
-
 
 # -----------------------------------------------------------------------------
 # Middle mesh
