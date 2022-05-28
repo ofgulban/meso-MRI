@@ -1,4 +1,9 @@
-"""Generate halfway phase shifted ring."""
+"""Generate halfway phase shifted ring.
+
+TODO[Faruk]: I need to revisit and seriously cleanup this script once revision
+rush is over.
+
+"""
 
 import os
 import numpy as np

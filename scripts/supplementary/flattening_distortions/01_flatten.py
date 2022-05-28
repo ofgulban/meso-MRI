@@ -1,4 +1,9 @@
-"""Generate halfway phase shifted ring."""
+"""Flatten halfway phase shifted ring.
+
+TODO[Faruk]: I need to revisit and seriouslycleanup this script once revision
+rush is over.
+
+"""
 
 import os
 import cv2
@@ -394,8 +399,9 @@ cv2.imwrite(os.path.join(OUTDIR, "flat-3_middle2.png"), new)
 # =============================================================================
 # Point cloud
 # =============================================================================
-x = np.arange(KAYCUBE_FACTOR//2, DIMS2[1]-1, KAYCUBE_FACTOR, dtype="int")
-y = np.arange(KAYCUBE_FACTOR//2, DIMS2[0]-1, KAYCUBE_FACTOR, dtype="int")
+S_FACTOR = KAYCUBE_FACTOR/1
+x = np.arange(S_FACTOR//2, DIMS2[1]-1, S_FACTOR, dtype="int")
+y = np.arange(S_FACTOR//2, DIMS2[0]-1, S_FACTOR, dtype="int")
 
 # Eliminate points outside of sample
 points_v = []
