@@ -18,8 +18,8 @@ DIMS = 900, 900
 RADIUS_OUTER = 450
 RADIUS_INNER = 150
 
-SEGMENTS_INNER = 5  # Default 30, high res 5
-NR_LAYERS = 121  # Default 21, high red 121
+SEGMENTS_INNER = 30  # Default 30, high res 5
+NR_LAYERS = 21  # Default 21, high red 121
 
 FLAT_DIMS = 320, 960
 
