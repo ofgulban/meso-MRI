@@ -187,10 +187,10 @@ plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == 0:
         plt.plot(points_s[i, :, 0], points_s[i, :, 1], marker="o",
-                 markersize=5, color=[0, 0.5, 1])
+                 markersize=3, color=[0, 0.5, 1])
     else:
         plt.plot(points_s[i, :, 0], points_s[i, :, 1], marker="o",
-                 markersize=5, color=[0.5, 0.5, 0.5])
+                 markersize=3, color=[0.5, 0.5, 0.5])
 
 plt.xlim([0, DIMS2[1]])
 plt.ylim([0, DIMS2[0]])
