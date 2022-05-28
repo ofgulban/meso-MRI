@@ -13,7 +13,7 @@ RADIUS_INNER = 150
 
 NR_LAYERS = 21
 
-FLAT_DIMS = 200, 600
+FLAT_DIMS = 400, 1200
 
 # -----------------------------------------------------------------------------
 # Compute circumference ratio of equal line segments
@@ -109,6 +109,12 @@ def pol2cart(rho, phi):
     return(x, y)
 
 
+def cart2pol(x, y):
+    rho = np.sqrt(x**2 + y**2)
+    phi = np.arctan2(y, x)
+    return(rho, phi)
+
+
 # Part 1
 points1 = np.zeros((NR_LAYERS, nr_segments_outer, 2))
 phis = np.linspace(np.pi, 2*np.pi, nr_segments_outer)
@@ -198,6 +204,7 @@ r_min, r_max = ideal_radii[ideal_radii > 0].min(), ideal_radii.max()
 
 nr_depths = points_d.shape[0]
 nr_points = points_d.shape[1]
+points_uv = np.zeros((nr_depths, nr_points, 2))
 for d in range(nr_depths):
     for p in range(nr_points):
         j, i = points_d[d, p, :].astype("int")
@@ -208,28 +215,37 @@ for d in range(nr_depths):
         if j >= DIMS2[1]:
             j -= 1
 
+        # Transform the point coordinates form folded to flat
         x = (ideal_radii[i, j]-r_min) / (r_max-r_min) * (flat_d.shape[0]-1)
         y = ideal_angles[i, j] / (2*np.pi) * (flat_d.shape[1]-1)
+
+        points_uv[d, p, :] = x, y  # Useful for filling in later
         flat_d[int(x), int(y)] = data3[i, j]
 
-cv2.imwrite(os.path.join(OUTDIR, "flat-1_deep.png"), flat_d)
+cv2.imwrite(os.path.join(OUTDIR, "flat-1_deep1.png"), flat_d)
 
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# -----------------------------------------------------------------------------
 # Fill-in
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 dims = flat_d.shape
 new = np.zeros(flat_d.shape)
+
 for i in range(dims[0]):
     for j in range(dims[1]):
         # Access to point coordinates in folded
-        a = np.copy(points_d.reshape(nr_depths*nr_points, 2))
-
-        # Transform the point coordinates form folded to flat
+        a = np.copy(points_uv.reshape(nr_depths*nr_points, 2))
+        b = np.copy(points_d.reshape(nr_depths*nr_points, 2))
 
         # Evaluate distances
-        dists = b[:, 0]**2 + b[:, 1]**2
+        dists = (a[:, 0]-i)**2 + (a[:, 1]-j)**2  # skip sqrt
         idx = np.argmin(dists)
-        x, y = a[idx, :]
+        y, x = b[idx, :]
+
+        # Handle edge cases
+        if x >= DIMS2[0]:
+            x -= 1
+        if y >= DIMS2[1]:
+            y -= 1
+
         new[i, j] = data3[int(x), int(y)]
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-1_deep2.png"), new)
@@ -242,6 +258,7 @@ r_min, r_max = ideal_radii[ideal_radii > 0].min(), ideal_radii.max()
 
 nr_depths = points_s.shape[0]
 nr_points = points_s.shape[1]
+points_uv = np.zeros((nr_depths, nr_points, 2))
 for d in range(nr_depths):
     for p in range(nr_points):
         j, i = points_s[d, p, :].astype("int")
@@ -252,11 +269,38 @@ for d in range(nr_depths):
         if j >= DIMS2[1]:
             j -= 1
 
+        # Transform the point coordinates form folded to flat
         x = (ideal_radii[i, j]-r_min) / (r_max-r_min) * (flat_s.shape[0]-1)
         y = ideal_angles[i, j] / (2*np.pi) * (flat_s.shape[1]-1)
+
+        points_uv[d, p, :] = x, y  # Useful for filling in later
         flat_s[int(x), int(y)] = data3[i, j]
 
-cv2.imwrite(os.path.join(OUTDIR, "flat-2_superficial.png"), flat_s)
+cv2.imwrite(os.path.join(OUTDIR, "flat-2_superficial1.png"), flat_s)
+
+# -----------------------------------------------------------------------------
+# Fill-in
+for i in range(dims[0]):
+    for j in range(dims[1]):
+        # Access to point coordinates in folded
+        a = np.copy(points_uv.reshape(nr_depths*nr_points, 2))
+        b = np.copy(points_s.reshape(nr_depths*nr_points, 2))
+
+        # Evaluate distances
+        dists = (a[:, 0]-i)**2 + (a[:, 1]-j)**2  # skip sqrt
+        idx = np.argmin(dists)
+        y, x = b[idx, :]
+
+        # Handle edge cases
+        if x >= DIMS2[0]:
+            x -= 1
+        if y >= DIMS2[1]:
+            y -= 1
+
+        new[i, j] = data3[int(x), int(y)]
+
+cv2.imwrite(os.path.join(OUTDIR, "flat-2_superficial2.png"), new)
+
 
 # -----------------------------------------------------------------------------
 # Middle mesh
@@ -266,6 +310,7 @@ r_min, r_max = ideal_radii[ideal_radii > 0].min(), ideal_radii.max()
 
 nr_depths = points_m.shape[0]
 nr_points = points_m.shape[1]
+points_uv = np.zeros((nr_depths, nr_points, 2))
 for d in range(nr_depths):
     for p in range(nr_points):
         j, i = points_m[d, p, :].astype("int")
@@ -276,10 +321,36 @@ for d in range(nr_depths):
         if j >= DIMS2[1]:
             j -= 1
 
+        # Transform the point coordinates form folded to flat
         x = (ideal_radii[i, j]-r_min) / (r_max-r_min) * (flat_m.shape[0]-1)
         y = ideal_angles[i, j] / (2*np.pi) * (flat_m.shape[1]-1)
+
+        points_uv[d, p, :] = x, y  # Useful for filling in later
         flat_m[int(x), int(y)] = data3[i, j]
 
-cv2.imwrite(os.path.join(OUTDIR, "flat-3_middle.png"), flat_m)
+cv2.imwrite(os.path.join(OUTDIR, "flat-3_middle1.png"), flat_m)
+
+# -----------------------------------------------------------------------------
+# Fill-in
+for i in range(dims[0]):
+    for j in range(dims[1]):
+        # Access to point coordinates in folded
+        a = np.copy(points_uv.reshape(nr_depths*nr_points, 2))
+        b = np.copy(points_m.reshape(nr_depths*nr_points, 2))
+
+        # Evaluate distances
+        dists = (a[:, 0]-i)**2 + (a[:, 1]-j)**2  # skip sqrt
+        idx = np.argmin(dists)
+        y, x = b[idx, :]
+
+        # Handle edge cases
+        if x >= DIMS2[0]:
+            x -= 1
+        if y >= DIMS2[1]:
+            y -= 1
+
+        new[i, j] = data3[int(x), int(y)]
+
+cv2.imwrite(os.path.join(OUTDIR, "flat-3_middle2.png"), new)
 
 print("Finished.")
