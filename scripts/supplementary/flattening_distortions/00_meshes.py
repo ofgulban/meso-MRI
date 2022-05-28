@@ -11,7 +11,10 @@ DIMS = 900, 900
 RADIUS_OUTER = 450
 RADIUS_INNER = 150
 
-NR_LAYERS = 7
+SEGMENTS_INNER = 30
+NR_LAYERS = 11
+
+KAYCUBE_FACTOR = 32
 
 # =============================================================================
 # Generate coordinates
@@ -38,10 +41,17 @@ data2 = np.zeros((DIMS2[0], DIMS2[1]))
 data2[0:DIMS[0]//2, 0:DIMS[1]] = data[0:DIMS[0]//2, :]
 data2[DIMS[0]//2:, DIMS[1]*2//3:] = data[DIMS[0]//2:, :]
 
+# Add notebook texture
+lines = np.zeros(data2.shape)
+lines[::KAYCUBE_FACTOR, :] = 100
+lines[1::KAYCUBE_FACTOR, :] = 100
+lines[data2 == 0] = 0
+data3 = np.copy(data2)
+data3[lines != 0] = 100
+
 # -----------------------------------------------------------------------------
 # Compute circumference ratio of equal line segments
 circum_ratio = (2 * np.pi * RADIUS_OUTER) / (2 * np.pi * RADIUS_INNER)
-SEGMENTS_INNER = 30
 SEGMENTS_OUTER = int(SEGMENTS_INNER / circum_ratio)
 
 circum_ratio2 = (2 * np.pi * ((RADIUS_OUTER+RADIUS_INNER)/2)) / (2 * np.pi * RADIUS_INNER)
@@ -104,16 +114,39 @@ plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == NR_LAYERS-1:
         plt.plot(points_d[i, :, 0], points_d[i, :, 1], marker="o",
-                 markersize=5,
+                 markersize=3,
                  color=[1, 0, 0])
     else:
         plt.plot(points_d[i, :, 0], points_d[i, :, 1], marker="o",
-                 markersize=5, color=[0.5, 0.5, 0.5])
+                 markersize=3,
+                 color=[0.5, 0.5, 0.5])
 
 plt.xlim([0, DIMS2[1]])
 plt.ylim([0, DIMS2[0]])
 plt.axis('off')
+plt.ioff()
 plt.savefig(os.path.join(OUTDIR, "1_deep_mesh.png"), bbox_inches='tight')
+plt.clf()
+
+# -----------------------------------------------------------------------------
+# Notebook texture plot
+plt.imshow(data3, cmap="gray", origin="lower")
+for i in range(NR_LAYERS):
+    if i == NR_LAYERS-1:
+        plt.plot(points_d[i, :, 0], points_d[i, :, 1], marker="o",
+                 markersize=3, linestyle='None',
+                 color=[1, 0, 0])
+    else:
+        plt.plot(points_d[i, :, 0], points_d[i, :, 1], marker="o",
+                 markersize=3, linestyle='None',
+                 color=[0.5, 0.5, 0.5])
+
+plt.xlim([0, DIMS2[1]])
+plt.ylim([0, DIMS2[0]])
+plt.axis('off')
+plt.ioff()
+plt.savefig(os.path.join(OUTDIR, "1_deep_mesh_alt.png"), bbox_inches='tight')
+plt.clf()
 
 # =============================================================================
 # Superficial surface mesh
@@ -157,7 +190,29 @@ for i in range(NR_LAYERS):
 plt.xlim([0, DIMS2[1]])
 plt.ylim([0, DIMS2[0]])
 plt.axis('off')
+plt.ioff()
 plt.savefig(os.path.join(OUTDIR, "2_sup_mesh.png"), bbox_inches='tight')
+plt.clf()
+
+# -----------------------------------------------------------------------------
+# Notebook texture plot
+plt.imshow(data3, cmap="gray", origin="lower")
+for i in range(NR_LAYERS):
+    if i == 0:
+        plt.plot(points_s[i, :, 0], points_s[i, :, 1], marker="o",
+                 markersize=3, linestyle='None',
+                 color=[0, 0.5, 1])
+    else:
+        plt.plot(points_s[i, :, 0], points_s[i, :, 1], marker="o",
+                 markersize=3, linestyle='None',
+                 color=[0.5, 0.5, 0.5])
+
+plt.xlim([0, DIMS2[1]])
+plt.ylim([0, DIMS2[0]])
+plt.axis('off')
+plt.ioff()
+plt.savefig(os.path.join(OUTDIR, "2_sup_mesh_alt.png"), bbox_inches='tight')
+plt.clf()
 
 # =============================================================================
 # Middle surface mesh
@@ -181,14 +236,36 @@ plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == NR_LAYERS//2:
         plt.plot(points_m[i, :, 0], points_m[i, :, 1], marker="o",
-                 markersize=5, color=[0, 1, 0])
+                 markersize=3, color=[0, 1, 0])
     else:
         plt.plot(points_m[i, :, 0], points_m[i, :, 1], marker="o",
-                 markersize=5, color=[0.5, 0.5, 0.5])
+                 markersize=3, color=[0.5, 0.5, 0.5])
 
 plt.xlim([0, DIMS2[1]])
 plt.ylim([0, DIMS2[0]])
 plt.axis('off')
+plt.ioff()
 plt.savefig(os.path.join(OUTDIR, "3_middle_mesh.png"), bbox_inches='tight')
+plt.clf()
+
+# -----------------------------------------------------------------------------
+# Notebook texture plot
+plt.imshow(data3, cmap="gray", origin="lower")
+for i in range(NR_LAYERS):
+    if i == NR_LAYERS//2:
+        plt.plot(points_m[i, :, 0], points_m[i, :, 1], marker="o",
+                 markersize=3, linestyle='None',
+                 color=[0, 1, 0])
+    else:
+        plt.plot(points_m[i, :, 0], points_m[i, :, 1], marker="o",
+                 markersize=3, linestyle='None',
+                 color=[0.5, 0.5, 0.5])
+
+plt.xlim([0, DIMS2[1]])
+plt.ylim([0, DIMS2[0]])
+plt.axis('off')
+plt.ioff()
+plt.savefig(os.path.join(OUTDIR, "3_middle_mesh_alt.png"), bbox_inches='tight')
+plt.clf()
 
 print("Finished.")
