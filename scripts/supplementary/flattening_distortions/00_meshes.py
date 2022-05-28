@@ -119,11 +119,11 @@ plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == NR_LAYERS-1:
         plt.plot(points_d[i, :, 0], points_d[i, :, 1], marker="o",
-                 markersize=3,
+                 markersize=3, linewidth=1,
                  color=[1, 0, 0])
     else:
         plt.plot(points_d[i, :, 0], points_d[i, :, 1], marker="o",
-                 markersize=3,
+                 markersize=3, linewidth=1,
                  color=[0.5, 0.5, 0.5])
 
 plt.xlim([0, DIMS2[1]])
@@ -287,12 +287,35 @@ for i in x:
             points_v.append([i, j])
 points_v = np.asarray(points_v)
 
+# Find middle gray matter voxels
+radii = np.linalg.norm(coords, axis=-1)
+mid_radii = (RADIUS_OUTER + RADIUS_INNER) // 2
+points_v_mid = []
+for i in range(points_v.shape[0]):
+    x, y = points_v[i, :]
+    if y < DIMS2[0]//2:
+        x -= center[0]
+        y -= center[1]
+    else:
+        x -= RADIUS_OUTER*2 + RADIUS_INNER
+        y -= center[1]
+
+    if np.abs(np.sqrt(x**2 + y**2) - mid_radii) < 16:
+        points_v_mid.append(points_v[i, :])
+
+points_v_mid = np.asarray(points_v_mid)
+
 # -----------------------------------------------------------------------------
 fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
 plt.imshow(data2, cmap="gray", origin="lower")
 plt.plot(points_v[:, 0], points_v[:, 1], marker="o",
          markersize=3, linestyle='None',
          color=[0.5, 0.5, 0.5])
+
+plt.plot(points_v_mid[:, 0], points_v_mid[:, 1], marker="o",
+         markersize=3, linestyle='None',
+         color=[0, 1, 0])
+
 
 plt.xlim([0, DIMS2[1]])
 plt.ylim([0, DIMS2[0]])
@@ -308,6 +331,10 @@ plt.imshow(data3, cmap="gray", origin="lower")
 plt.plot(points_v[:, 0], points_v[:, 1], marker="o",
          markersize=3, linestyle='None',
          color=[0.5, 0.5, 0.5])
+
+plt.plot(points_v_mid[:, 0], points_v_mid[:, 1], marker="o",
+         markersize=3, linestyle='None',
+         color=[0, 1, 0])
 
 plt.xlim([0, DIMS2[1]])
 plt.ylim([0, DIMS2[0]])
