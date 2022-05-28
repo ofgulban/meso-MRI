@@ -13,7 +13,8 @@ DIMS = 900, 900
 RADIUS_OUTER = 450
 RADIUS_INNER = 150
 
-NR_LAYERS = 21
+SEGMENTS_INNER = 5  # Default 30, high res 5
+NR_LAYERS = 121  # Default 21, high red 121
 
 FLAT_DIMS = 320, 960
 
@@ -22,7 +23,6 @@ KAYCUBE_FACTOR = 32
 # -----------------------------------------------------------------------------
 # Compute circumference ratio of equal line segments
 circum_ratio = (2 * np.pi * RADIUS_OUTER) / (2 * np.pi * RADIUS_INNER)
-SEGMENTS_INNER = 30
 SEGMENTS_OUTER = int(SEGMENTS_INNER / circum_ratio)
 
 circum_ratio2 = (2 * np.pi * ((RADIUS_OUTER+RADIUS_INNER)/2)) / (2 * np.pi * RADIUS_INNER)
