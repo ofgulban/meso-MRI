@@ -16,6 +16,9 @@ NR_LAYERS = 11
 
 KAYCUBE_FACTOR = 32
 
+DPI = 192
+plt.style.use('dark_background')
+
 # =============================================================================
 # Generate coordinates
 coords = np.zeros((DIMS[0], DIMS[1], 2))
@@ -44,7 +47,7 @@ data2[DIMS[0]//2:, DIMS[1]*2//3:] = data[DIMS[0]//2:, :]
 # Add notebook texture
 lines = np.zeros(data2.shape)
 lines[::KAYCUBE_FACTOR, :] = 100
-lines[1::KAYCUBE_FACTOR, :] = 100
+lines[:, ::KAYCUBE_FACTOR] = 100
 lines[data2 == 0] = 0
 data3 = np.copy(data2)
 data3[lines != 0] = 100
@@ -105,9 +108,6 @@ points_d[:, :nr_segments_outer, :] = points1
 points_d[:, nr_segments_outer:, :] = points2[::-1, ::-1, :]
 
 # =============================================================================
-plt.style.use('dark_background')
-
-DPI = 192
 fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
 
 plt.imshow(data2, cmap="gray", origin="lower")
@@ -267,5 +267,49 @@ plt.axis('off')
 plt.ioff()
 plt.savefig(os.path.join(OUTDIR, "3_middle_mesh_alt.png"), bbox_inches='tight')
 plt.clf()
+
+# =============================================================================
+# Point cloud
+# =============================================================================
+x = np.arange(KAYCUBE_FACTOR//2, DIMS2[1]-1, KAYCUBE_FACTOR, dtype="int")
+y = np.arange(KAYCUBE_FACTOR//2, DIMS2[0]-1, KAYCUBE_FACTOR, dtype="int")
+
+# Eliminate points outside of sample
+points_v = []
+for i in x:
+    for j in y:
+        if data2[j, i] > 0:
+            points_v.append([i, j])
+points_v = np.asarray(points_v)
+
+# -----------------------------------------------------------------------------
+fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
+plt.imshow(data2, cmap="gray", origin="lower")
+plt.plot(points_v[:, 0], points_v[:, 1], marker="o",
+         markersize=3, linestyle='None',
+         color=[0.5, 0.5, 0.5])
+
+plt.xlim([0, DIMS2[1]])
+plt.ylim([0, DIMS2[0]])
+plt.axis('off')
+plt.ioff()
+plt.savefig(os.path.join(OUTDIR, "4_point_cloud.png"), bbox_inches='tight')
+plt.clf()
+
+# -----------------------------------------------------------------------------
+# Notebook texture plot
+fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
+plt.imshow(data3, cmap="gray", origin="lower")
+plt.plot(points_v[:, 0], points_v[:, 1], marker="o",
+         markersize=3, linestyle='None',
+         color=[0.5, 0.5, 0.5])
+
+plt.xlim([0, DIMS2[1]])
+plt.ylim([0, DIMS2[0]])
+plt.axis('off')
+plt.ioff()
+plt.savefig(os.path.join(OUTDIR, "4_point_cloud_alt.png"), bbox_inches='tight')
+plt.clf()
+
 
 print("Finished.")

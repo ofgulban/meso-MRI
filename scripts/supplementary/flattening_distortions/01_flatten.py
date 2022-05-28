@@ -13,8 +13,8 @@ DIMS = 900, 900
 RADIUS_OUTER = 450
 RADIUS_INNER = 150
 
-SEGMENTS_INNER = 30  # Default 30, high res 5
-NR_LAYERS = 11  # Default 21, high red 121
+SEGMENTS_INNER = 5  # Default 30, high res 5
+NR_LAYERS = 121  # Default 21, high red 121
 
 FLAT_DIMS = 320, 960
 
@@ -206,13 +206,6 @@ img = ndimage.median_filter(flat_i, size=5)
 flat_i[~(flat_i != 0)] = img[~(flat_i != 0)]
 cv2.imwrite(os.path.join(OUTDIR, "flat-0_ideal2.png"), flat_i)
 
-# (Optional) Emulate voxel based subsampling
-flat_v = ndimage.zoom(flat_i, 1./(KAYCUBE_FACTOR/24), mode="reflect",
-                      order=0, prefilter=False)
-flat_v = ndimage.zoom(flat_v, KAYCUBE_FACTOR/4, mode="reflect",
-                      order=0, prefilter=False)
-cv2.imwrite(os.path.join(OUTDIR, "flat-4_voxel.png"), flat_v)
-
 # -----------------------------------------------------------------------------
 # Deep mesh
 # -----------------------------------------------------------------------------
@@ -397,5 +390,65 @@ for i in range(dims[0]):
         new[i, j] = data3[int(x), int(y)]
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-3_middle2.png"), new)
+
+# =============================================================================
+# Point cloud
+# =============================================================================
+x = np.arange(KAYCUBE_FACTOR//2, DIMS2[1]-1, KAYCUBE_FACTOR, dtype="int")
+y = np.arange(KAYCUBE_FACTOR//2, DIMS2[0]-1, KAYCUBE_FACTOR, dtype="int")
+
+# Eliminate points outside of sample
+points_v = []
+for i in x:
+    for j in y:
+        if data2[j, i] > 0:
+            points_v.append([i, j])
+points_v = np.asarray(points_v)
+
+# -----------------------------------------------------------------------------
+# Flatten
+flat_m = np.zeros(FLAT_DIMS)
+r_min, r_max = ideal_radii[ideal_radii > 0].min(), ideal_radii.max()
+
+nr_depths = points_m.shape[0]
+nr_points = points_m.shape[1]
+points_uv = np.zeros((points_v.shape[0], 2))
+for k in range(points_uv.shape[0]):
+    j, i = points_v[k, :]
+
+    # Transform the point coordinates form folded to flat
+    x = (ideal_radii[i, j]-r_min) / (r_max-r_min) * (flat_m.shape[0]-1)
+    y = ideal_angles[i, j] / (2*np.pi) * (flat_m.shape[1]-1)
+
+    points_uv[k, :] = x, y  # Useful for filling in later
+    flat_m[int(x), int(y)] = data3[i, j]
+
+cv2.imwrite(os.path.join(OUTDIR, "flat-4_pointcloud1.png"), flat_m)
+# Save sampled points
+cv2.imwrite(os.path.join(OUTDIR, "flat-4_pointcloud0.png"), (flat_m > 0) * 255)
+
+# -----------------------------------------------------------------------------
+# Fill-in
+for i in range(dims[0]):
+    for j in range(dims[1]):
+        # Access to point coordinates in folded
+        a = np.copy(points_uv)
+        b = np.copy(points_v)
+
+        # Evaluate distances
+        dists = (a[:, 0]-i)**2 + (a[:, 1]-j)**2  # skip sqrt
+        idx = np.argmin(dists)
+        y, x = b[idx, :]
+
+        # Handle edge cases
+        if x >= DIMS2[0]:
+            x -= 1
+        if y >= DIMS2[1]:
+            y -= 1
+
+        new[i, j] = data3[int(x), int(y)]
+
+cv2.imwrite(os.path.join(OUTDIR, "flat-4_pointcloud2.png"), new)
+
 
 print("Finished.")
