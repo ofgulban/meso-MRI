@@ -13,8 +13,8 @@ DIMS = 900, 900
 RADIUS_OUTER = 450
 RADIUS_INNER = 150
 
-SEGMENTS_INNER = 5  # Default 30, high res 5
-NR_LAYERS = 121  # Default 21, high red 121
+SEGMENTS_INNER = 30  # Default 30, high res 5
+NR_LAYERS = 11  # Default 21, high red 121
 
 FLAT_DIMS = 320, 960
 
@@ -198,6 +198,8 @@ for i in range(DIMS2[0]):
             flat_i[int(x), int(y)] = data3[i, j]
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-0_ideal1.png"), flat_i)
+# Save sampled points
+cv2.imwrite(os.path.join(OUTDIR, "flat-0_ideal0.png"), (flat_i > 0) * 255)
 
 # Quick fill in with median
 img = ndimage.median_filter(flat_i, size=5)
@@ -250,6 +252,8 @@ for d in range(nr_depths):
         flat_d[int(x), int(z)] = data3[i, j]
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-1_deep1.png"), flat_d)
+# Save sampled points
+cv2.imwrite(os.path.join(OUTDIR, "flat-1_deep0.png"), (flat_d > 0) * 255)
 
 # -----------------------------------------------------------------------------
 # Fill-in
@@ -314,6 +318,9 @@ for d in range(nr_depths):
         flat_s[int(x), int(z)] = data3[i, j]
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-2_superficial1.png"), flat_s)
+# Save sampled points
+cv2.imwrite(os.path.join(OUTDIR, "flat-2_superficial0.png"), (flat_s > 0) * 255)
+
 
 # -----------------------------------------------------------------------------
 # Fill-in
@@ -365,6 +372,8 @@ for d in range(nr_depths):
         flat_m[int(x), int(y)] = data3[i, j]
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-3_middle1.png"), flat_m)
+# Save sampled points
+cv2.imwrite(os.path.join(OUTDIR, "flat-3_middle0.png"), (flat_m > 0) * 255)
 
 # -----------------------------------------------------------------------------
 # Fill-in
