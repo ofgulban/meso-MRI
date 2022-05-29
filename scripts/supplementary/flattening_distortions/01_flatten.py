@@ -18,8 +18,8 @@ DIMS = 900, 900
 RADIUS_OUTER = 450
 RADIUS_INNER = 150
 
-SEGMENTS_INNER = 30  # Default 30, high res 5
-NR_LAYERS = 21  # Default 21, high red 121
+SEGMENTS_INNER = 25  # Default 25, high res 5
+NR_LAYERS = 11  # Default 11, high red 121
 
 FLAT_DIMS = 320, 960
 
@@ -211,6 +211,13 @@ img = ndimage.median_filter(flat_i, size=5)
 flat_i[~(flat_i != 0)] = img[~(flat_i != 0)]
 cv2.imwrite(os.path.join(OUTDIR, "flat-0_ideal2.png"), flat_i)
 
+# Gradient magnitude to highlight edges
+gra = np.gradient(flat_i)
+gra = np.sqrt(gra[0]**2 + gra[1]**2)
+gra = (gra == 0) * 255
+gra[gra == 0] = 128
+cv2.imwrite(os.path.join(OUTDIR, "flat-0_ideal_gramag.png"), gra)
+
 # -----------------------------------------------------------------------------
 # Deep mesh
 # -----------------------------------------------------------------------------
@@ -250,8 +257,6 @@ for d in range(nr_depths):
         flat_d[int(x), int(z)] = data3[i, j]
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-1_deep1.png"), flat_d)
-# Save sampled points
-cv2.imwrite(os.path.join(OUTDIR, "flat-1_deep0.png"), (flat_d > 0) * 255)
 
 # -----------------------------------------------------------------------------
 # Fill-in
@@ -316,9 +321,6 @@ for d in range(nr_depths):
         flat_s[int(x), int(z)] = data3[i, j]
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-2_superficial1.png"), flat_s)
-# Save sampled points
-cv2.imwrite(os.path.join(OUTDIR, "flat-2_superficial0.png"), (flat_s > 0) * 255)
-
 
 # -----------------------------------------------------------------------------
 # Fill-in
@@ -370,8 +372,25 @@ for d in range(nr_depths):
         flat_m[int(x), int(y)] = data3[i, j]
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-3_middle1.png"), flat_m)
+
+# -----------------------------------------------------------------------------
 # Save sampled points
-cv2.imwrite(os.path.join(OUTDIR, "flat-3_middle0.png"), (flat_m > 0) * 255)
+img = np.zeros((FLAT_DIMS[0]+2, FLAT_DIMS[1]+2, 3))  # account for edge cases
+img[1:-1, 1:-1, :] = gra[..., None]
+color = [0, 0, 255]
+for x in range(FLAT_DIMS[0]):
+    for y in range(FLAT_DIMS[1]):
+        if flat_m[x, y] > 0:
+            img[x+1, y+1, :] = color
+            img[x+1-1, y+1, :] = color
+            img[x+1+1, y+1, :] = color
+            img[x+1, y+1-1, :] = color
+            img[x+1, y+1+1, :] = color
+            img[x+1-1, y+1-1, :] = color
+            img[x+1-1, y+1+1, :] = color
+            img[x+1+1, y+1-1, :] = color
+            img[x+1+1, y+1+1, :] = color
+cv2.imwrite(os.path.join(OUTDIR, "flat-3_middle0.png"), img[1:-1, 1:-1])
 
 # -----------------------------------------------------------------------------
 # Fill-in
@@ -413,7 +432,7 @@ points_v = np.asarray(points_v)
 
 # -----------------------------------------------------------------------------
 # Flatten
-flat_m = np.zeros(FLAT_DIMS)
+flat_p = np.zeros(FLAT_DIMS)
 r_min, r_max = ideal_radii[ideal_radii > 0].min(), ideal_radii.max()
 
 nr_depths = points_m.shape[0]
@@ -423,15 +442,32 @@ for k in range(points_uv.shape[0]):
     j, i = points_v[k, :]
 
     # Transform the point coordinates form folded to flat
-    x = (ideal_radii[i, j]-r_min) / (r_max-r_min) * (flat_m.shape[0]-1)
-    y = ideal_angles[i, j] / (2*np.pi) * (flat_m.shape[1]-1)
+    x = (ideal_radii[i, j]-r_min) / (r_max-r_min) * (flat_p.shape[0]-1)
+    y = ideal_angles[i, j] / (2*np.pi) * (flat_p.shape[1]-1)
 
     points_uv[k, :] = x, y  # Useful for filling in later
-    flat_m[int(x), int(y)] = data3[i, j]
+    flat_p[int(x), int(y)] = data3[i, j]
 
-cv2.imwrite(os.path.join(OUTDIR, "flat-4_pointcloud1.png"), flat_m)
+cv2.imwrite(os.path.join(OUTDIR, "flat-4_pointcloud1.png"), flat_p)
+
+# -----------------------------------------------------------------------------
 # Save sampled points
-cv2.imwrite(os.path.join(OUTDIR, "flat-4_pointcloud0.png"), (flat_m > 0) * 255)
+img = np.zeros((FLAT_DIMS[0]+2, FLAT_DIMS[1]+2, 3))  # account for edge cases
+img[1:-1, 1:-1, :] = gra[..., None]
+color = [0, 0, 255]
+for x in range(FLAT_DIMS[0]):
+    for y in range(FLAT_DIMS[1]):
+        if flat_p[x, y] > 0:
+            img[x+1, y+1, :] = color
+            img[x+1-1, y+1, :] = color
+            img[x+1+1, y+1, :] = color
+            img[x+1, y+1-1, :] = color
+            img[x+1, y+1+1, :] = color
+            img[x+1-1, y+1-1, :] = color
+            img[x+1-1, y+1+1, :] = color
+            img[x+1+1, y+1-1, :] = color
+            img[x+1+1, y+1+1, :] = color
+cv2.imwrite(os.path.join(OUTDIR, "flat-4_pointcloud0.png"), img[1:-1, 1:-1])
 
 # -----------------------------------------------------------------------------
 # Fill-in

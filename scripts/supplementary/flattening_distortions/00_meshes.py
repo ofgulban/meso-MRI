@@ -16,7 +16,7 @@ DIMS = 900, 900
 RADIUS_OUTER = 450
 RADIUS_INNER = 150
 
-SEGMENTS_INNER = 30
+SEGMENTS_INNER = 25
 NR_LAYERS = 11
 
 KAYCUBE_FACTOR = 32
@@ -139,11 +139,11 @@ plt.imshow(data3, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == NR_LAYERS-1:
         plt.plot(points_d[i, :, 0], points_d[i, :, 1], marker="o",
-                 markersize=3, linestyle='None',
+                 markersize=2, linestyle='None',
                  color=[1, 0, 0])
     else:
         plt.plot(points_d[i, :, 0], points_d[i, :, 1], marker="o",
-                 markersize=3, linestyle='None',
+                 markersize=2, linestyle='None',
                  color=[0.5, 0.5, 0.5])
 
 plt.xlim([0, DIMS2[1]])
@@ -205,11 +205,11 @@ plt.imshow(data3, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == 0:
         plt.plot(points_s[i, :, 0], points_s[i, :, 1], marker="o",
-                 markersize=3, linestyle='None',
+                 markersize=2, linestyle='None',
                  color=[0, 0.5, 1])
     else:
         plt.plot(points_s[i, :, 0], points_s[i, :, 1], marker="o",
-                 markersize=3, linestyle='None',
+                 markersize=2, linestyle='None',
                  color=[0.5, 0.5, 0.5])
 
 plt.xlim([0, DIMS2[1]])
@@ -259,12 +259,12 @@ plt.imshow(data3, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == NR_LAYERS//2:
         plt.plot(points_m[i, :, 0], points_m[i, :, 1], marker="o",
-                 markersize=3, linestyle='None',
-                 color=[0, 1, 0])
+                 markersize=2, linestyle='None',
+                 color=[1, 0, 0])
     else:
         plt.plot(points_m[i, :, 0], points_m[i, :, 1], marker="o",
-                 markersize=3, linestyle='None',
-                 color=[0.5, 0.5, 0.5])
+                 markersize=2, linestyle='None',
+                 color=[1, 0, 0])
 
 plt.xlim([0, DIMS2[1]])
 plt.ylim([0, DIMS2[0]])
@@ -314,7 +314,7 @@ plt.plot(points_v[:, 0], points_v[:, 1], marker="o",
 
 plt.plot(points_v_mid[:, 0], points_v_mid[:, 1], marker="o",
          markersize=3, linestyle='None',
-         color=[0, 1, 0])
+         color=[199/255, 0, 199/255])
 
 
 plt.xlim([0, DIMS2[1]])
@@ -329,12 +329,12 @@ plt.clf()
 fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
 plt.imshow(data3, cmap="gray", origin="lower")
 plt.plot(points_v[:, 0], points_v[:, 1], marker="o",
-         markersize=3, linestyle='None',
-         color=[0.5, 0.5, 0.5])
+         markersize=2, linestyle='None',
+         color=[1, 0, 0])
 
-plt.plot(points_v_mid[:, 0], points_v_mid[:, 1], marker="o",
-         markersize=3, linestyle='None',
-         color=[0, 1, 0])
+# plt.plot(points_v_mid[:, 0], points_v_mid[:, 1], marker="o",
+#          markersize=3, linestyle='None',
+#          color=[199/255, 0, 199/255])
 
 plt.xlim([0, DIMS2[1]])
 plt.ylim([0, DIMS2[0]])
