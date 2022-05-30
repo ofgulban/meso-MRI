@@ -119,7 +119,8 @@ plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == NR_LAYERS-1:
         plt.plot(points_d[i, :, 0], points_d[i, :, 1], marker="o",
-                 markersize=3, linewidth=1,
+                 markersize=6,
+                 linewidth=2,
                  color=[1, 0, 0])
     else:
         plt.plot(points_d[i, :, 0], points_d[i, :, 1], marker="o",
@@ -187,7 +188,8 @@ plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == 0:
         plt.plot(points_s[i, :, 0], points_s[i, :, 1], marker="o",
-                 markersize=3, color=[0, 0.5, 1])
+                 markersize=6,
+                 linewidth=2, color=[0, 0.5, 1])
     else:
         plt.plot(points_s[i, :, 0], points_s[i, :, 1], marker="o",
                  markersize=3, color=[0.5, 0.5, 0.5])
@@ -241,7 +243,8 @@ plt.imshow(data2, cmap="gray", origin="lower")
 for i in range(NR_LAYERS):
     if i == NR_LAYERS//2:
         plt.plot(points_m[i, :, 0], points_m[i, :, 1], marker="o",
-                 markersize=3, color=[0, 1, 0])
+                 markersize=6,
+                 linewidth=2, color=[0, 220/255, 0])
     else:
         plt.plot(points_m[i, :, 0], points_m[i, :, 1], marker="o",
                  markersize=3, color=[0.5, 0.5, 0.5])
@@ -310,10 +313,10 @@ fig = plt.figure(figsize=(1920/DPI, 1080/DPI), dpi=DPI)
 plt.imshow(data2, cmap="gray", origin="lower")
 plt.plot(points_v[:, 0], points_v[:, 1], marker="o",
          markersize=3, linestyle='None',
-         color=[0.5, 0.5, 0.5])
+         color=[199/255, 0, 199/255])
 
 plt.plot(points_v_mid[:, 0], points_v_mid[:, 1], marker="o",
-         markersize=3, linestyle='None',
+         markersize=5, linestyle='None',
          color=[199/255, 0, 199/255])
 
 
