@@ -18,13 +18,14 @@ DIMS = 900, 900
 RADIUS_OUTER = 450
 RADIUS_INNER = 150
 
-SEGMENTS_INNER = 7  # Default 25, 2X 12, 4X 7
-NR_LAYERS = 61  # Default 11, 2X 21, 4X 61
+SEGMENTS_INNER = 25  # Default 25, 2X 12, 4X 7
+NR_LAYERS = 11  # Default 11, 2X 21, 4X 61
 
 FLAT_DIMS = 320, 960
 
-KAYCUBE_FACTOR = 32
-S_FACTOR = KAYCUBE_FACTOR/4  # Default 1, 2X 2, 4X 4
+KAYCUBE_FACTOR = 128  # default 32, 2X 64, 4X, 128
+TEMP_ADJUSTOR = 4  # 1, 2, 4
+S_FACTOR = int(KAYCUBE_FACTOR/1)   # Default 1
 
 # -----------------------------------------------------------------------------
 # Compute circumference ratio of equal line segments
@@ -419,8 +420,8 @@ cv2.imwrite(os.path.join(OUTDIR, "flat-3_middle2.png"), new)
 # =============================================================================
 # Point cloud
 # =============================================================================
-x = np.arange(S_FACTOR//2, DIMS2[1]-1, S_FACTOR, dtype="int")
-y = np.arange(S_FACTOR//2, DIMS2[0]-1, S_FACTOR, dtype="int")
+x = np.arange(S_FACTOR//2, DIMS2[1]-1, S_FACTOR/TEMP_ADJUSTOR, dtype="int")
+y = np.arange(S_FACTOR//2, DIMS2[0]-1, S_FACTOR/TEMP_ADJUSTOR, dtype="int")
 
 # Eliminate points outside of sample
 points_v = []
@@ -492,11 +493,10 @@ for i in range(dims[0]):
 
 cv2.imwrite(os.path.join(OUTDIR, "flat-4_pointcloud2.png"), new)
 
-
+# NOTE: Make sure these approximately match
 print(points_d.shape[0] * points_d.shape[1])
 print(points_s.shape[0] * points_s.shape[1])
 print(points_m.shape[0] * points_m.shape[1])
-
-print(points_v.shape)
+print(points_v.shape[0])
 
 print("Finished.")
