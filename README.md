@@ -28,10 +28,10 @@ Please refer to the Methods section of my paper, and the flowcharts inluded here
 2. Execute scripts in your command line by running e.g. `python ./04_motion_correct.py`.
 
 ### T2* (MEGRE) data
-![MEGRE](/flowcharts/flowchart-MEGRE.png)
+![MEGRE](/flowcharts/flowchart-MEGRE.svg)
 
 ### T1 (MP2RAGE) data
-![MP2RAGE](/flowcharts/flowchart-MP2RAGE.png)
+![MP2RAGE](/flowcharts/flowchart-MP2RAGE.svg)
 
 # License
 The project is licensed under [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause).
