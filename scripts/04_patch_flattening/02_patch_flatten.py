@@ -102,6 +102,7 @@ for j in range(len(VALUES)):
 
 # -----------------------------------------------------------------------------
 # Make sform qform of flat niftis identity matrix
+print("Rewriting affines with identuty matrix...")
 nii_files = glob.glob(os.path.join(OUTDIR, "*.nii*"))
 for i in nii_files:
     nii = nb.load(i)
