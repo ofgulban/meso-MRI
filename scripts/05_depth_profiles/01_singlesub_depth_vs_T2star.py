@@ -194,9 +194,9 @@ for s in SUBJ_ID:
         # Custom tick labels
         ax[i].set_xticks([0, 25, 49, 51, 100, 149, 151, 175, 200])
         ax[i].set_xticklabels([0.7, 0.35, None, 0, 0.5, 1, None, 0.35, 0.7])
-        ax[i].set_yticks(np.linspace(0, nr_bins-1, 6, dtype=np.int))
+        ax[i].set_yticks(np.linspace(0, nr_bins-1, 6, dtype=np.int32))
         ax[i].set_yticklabels(np.linspace(RANGE_Y[0], RANGE_Y[1], 6,
-                                          dtype=np.int))
+                                          dtype=np.int32))
 
         # Add text (positions are in data coordinates)
         ax[i].text(0 + 1, 80, 'Below\ngray matter\n(White matter)',

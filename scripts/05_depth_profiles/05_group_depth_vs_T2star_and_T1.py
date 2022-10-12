@@ -95,9 +95,9 @@ for j in range(len(FIG_DATA_1)):  # Loop across individual subjects
         ax2[i].set_ylabel(r"T$_1$ [ms]", color="red")
         ax2[i].set_ylim(RANGE_Y_2)
         ax2[i].set_yticks(np.linspace(RANGE_Y_2[0], RANGE_Y_2[1], 6,
-                          dtype=np.int))
+                          dtype=np.int32))
         ax2[i].set_yticklabels(np.linspace(RANGE_Y_2[0], RANGE_Y_2[1], 6,
-                                          dtype=np.int), color="red")
+                                          dtype=np.int32), color="red")
 
 
 for i in range(4):
@@ -117,9 +117,9 @@ for i in range(4):
     ax1[i].set_xticks([-0.7, -0.35, -0.01, 0.01, 0.5, 0.99, 1.01, 1.35, 1.7])
     ax1[i].set_xticklabels([0.7, 0.35, None, 0, 0.5, 1, None, 0.35, 0.7])
 
-    ax1[i].set_yticks(np.linspace(RANGE_Y_1[0], RANGE_Y_1[1], 6, dtype=np.int))
+    ax1[i].set_yticks(np.linspace(RANGE_Y_1[0], RANGE_Y_1[1], 6, dtype=np.int32))
     ax1[i].set_yticklabels(np.linspace(RANGE_Y_1[0], RANGE_Y_1[1], 6,
-                                      dtype=np.int))
+                                      dtype=np.int32))
 
     # Add text (positions are in data coordinates)
     ax1[i].text(-0.7 + 0.025, 80, 'Below\ngray matter\n(White matter)',

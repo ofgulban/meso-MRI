@@ -100,9 +100,9 @@ for i in range(4):
     # Custom tick labels
     ax[i].set_xticks([-0.7, -0.35, -0.01, 0.01, 0.5, 0.99, 1.01, 1.35, 1.7])
     ax[i].set_xticklabels([0.7, 0.35, None, 0, 0.5, 1, None, 0.35, 0.7])
-    ax[i].set_yticks(np.linspace(RANGE_Y[0], RANGE_Y[1], 6, dtype=np.int))
+    ax[i].set_yticks(np.linspace(RANGE_Y[0], RANGE_Y[1], 6, dtype=np.int32))
     ax[i].set_yticklabels(np.linspace(RANGE_Y[0], RANGE_Y[1], 6,
-                                      dtype=np.int))
+                                      dtype=np.int32))
 
     # Add text (positions are in data coordinates)
     ax[i].text(-0.7 + 0.025, 80, 'Below\ngray matter\n(White matter)',
