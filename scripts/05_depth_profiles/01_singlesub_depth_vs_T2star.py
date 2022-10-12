@@ -12,6 +12,11 @@ OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/20_depth_vs_T2star"
 FIGURE_TAG = "depth_vs_T2star"
 
 # =============================================================================
+# Output directory
+if not os.path.exists(OUTDIR):
+    os.makedirs(OUTDIR)
+print("Output directory: {}".format(OUTDIR))
+
 for s in SUBJ_ID:
     METRIC_X = [
         "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_HG_RH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
@@ -38,13 +43,10 @@ for s in SUBJ_ID:
     VOXEL_VOLUME = 0.173611 * 0.173611 * 0.175  # mm
     VOXEL_VOLUME /= 1000  # mm^3 to cm^3
 
-    # =========================================================================
-    # Output directory
-    if not os.path.exists(OUTDIR):
-        os.makedirs(OUTDIR)
-        print("  Output directory: {}\n".format(OUTDIR))
+    VMIN, VMAX = 0, 300
+    CMAP = cc.cm.fire
 
-    # -------------------------------------------------------------------------
+    # =========================================================================
     # Prepare figure data output for group figure
     temp_data = {"WM": {}, "GM": {}, "CSF": {}}
 
@@ -145,9 +147,9 @@ for s in SUBJ_ID:
         img[50:150, :] = fig_data[TAGS[i]]["GM"]["Hist2D"]
         img[150:200, :] = fig_data[TAGS[i]]["CSF"]["Hist2D"]
 
-        panel = ax[i].imshow(img.T, origin="lower", cmap=cc.cm.fire,
+        panel = ax[i].imshow(img.T, origin="lower", cmap=CMAP,
                              interpolation="none", aspect="auto",
-                             vmin=0, vmax=300, extent=(0, 200, 0, 100))
+                             vmin=VMIN, vmax=VMAX, extent=(0, 200, 0, 100))
 
         cb = fig.colorbar(panel, ax=ax[i], pad=0.03, shrink=0.65)
         cb.ax.text(0, -55, "Nr.\nvoxels", rotation=0, color="white",

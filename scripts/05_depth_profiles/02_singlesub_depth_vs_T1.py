@@ -6,13 +6,17 @@ import numpy as np
 import nibabel as nb
 import matplotlib.pyplot as plt
 import cmocean
-import colorcet as cc
 
 SUBJ_ID = ["sub-01", "sub-02", "sub-03", "sub-04", "sub-05"]
 OUTDIR = "/home/faruk/data2/DATA_MRI_NIFTI/derived/plots/21_depth_vs_T1"
 FIGURE_TAG = "depth_vs_T1"
 
 # =============================================================================
+# Output directory
+if not os.path.exists(OUTDIR):
+    os.makedirs(OUTDIR)
+print("Output directory: {}".format(OUTDIR))
+
 for s in SUBJ_ID:
     METRIC_X = [
         "/home/faruk/data2/DATA_MRI_NIFTI/derived/{}/segmentation/07_beyond_gm_collate/{}_ses-T2s_segm_rim_HG_RH_v02_beyond_gm_distances_smooth.nii.gz".format(s, s),
@@ -39,13 +43,10 @@ for s in SUBJ_ID:
     VOXEL_VOLUME = 0.173611 * 0.173611 * 0.175  # mm
     VOXEL_VOLUME /= 1000  # mm^3 to cm^3
 
-    # =========================================================================
-    # Output directory
-    if not os.path.exists(OUTDIR):
-        os.makedirs(OUTDIR)
-        print("  Output directory: {}\n".format(OUTDIR))
+    VMIN, VMAX = 0, 600
+    CMAP = cmocean.cm.ice
 
-    # -------------------------------------------------------------------------
+    # =========================================================================
     # Prepare figure data output for group figure
     temp_data = {"WM": {}, "GM": {}, "CSF": {}}
 
@@ -146,9 +147,9 @@ for s in SUBJ_ID:
         img[50:150, :] = fig_data[TAGS[i]]["GM"]["Hist2D"]
         img[150:200, :] = fig_data[TAGS[i]]["CSF"]["Hist2D"]
 
-        panel = ax[i].imshow(img.T, origin="lower", cmap=cmocean.cm.ice,
+        panel = ax[i].imshow(img.T, origin="lower", cmap=CMAP,
                              interpolation="none", aspect="auto",
-                             vmin=0, vmax=600, extent=(0, 200, 0, 100))
+                             vmin=VMIN, vmax=VMAX, extent=(0, 200, 0, 100))
 
         cb = fig.colorbar(panel, ax=ax[i], pad=0.03, shrink=0.65)
         cb.ax.text(0, -105, "Nr.\nvoxels", rotation=0, color="white",
