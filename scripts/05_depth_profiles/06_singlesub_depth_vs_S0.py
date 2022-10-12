@@ -160,7 +160,7 @@ for s in SUBJ_ID:
 
         # ---------------------------------------------------------------------
         # Axis labels
-        ax[i].set_ylabel(r"T$_2^*$ [ms]")
+        ax[i].set_ylabel(r"S$_0$ [a.u.]")
 
         # X axis break points
         ax[i].plot((50, 50), (0, 100), '-', linewidth=1.5,

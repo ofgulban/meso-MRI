@@ -88,7 +88,7 @@ for j in range(len(FIG_DATA)):  # Loop across individual subjects
 for i in range(4):
     ax[i].set_title(r"{}".format(TAGS[i]), color="white")
     ax[i].set_title(TAGS[i])
-    ax[i].set_ylabel(r"R$_1$ [ms]")
+    ax[i].set_ylabel(r"R$_1$ [s$^{-1}$]")
     ax[i].set_ylim(RANGE_Y)
 
     # X axis break points
