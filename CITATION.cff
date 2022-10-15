@@ -1,4 +1,4 @@
-cff-version: 1.1.0
+cff-version: 1.2.0
 message: "If you benefit from this repository, please cite it as below."
 authors:
   - family-names: Gulban
@@ -33,7 +33,39 @@ authors:
     given-names: Dimo
     orcid: https://orcid.org/0000-0001-9387-5823
 
-
 title: "Mesoscopic in vivo human T2* dataset acquired using quantitative MRI at 7 Tesla"
+version: 1.0.1
 doi: https://doi.org/10.1101/2021.11.25.470023
 date-released: 2022-10-15
+preferred-citation:
+  type: article
+  authors:
+  - family-names: Gulban
+    given-names: Omer Faruk
+    orcid: https://orcid.org/0000-0001-7761-3727
+  - family-names: Bollmann
+    given-names: Saskia
+    orcid: https://orcid.org/0000-0001-8242-8008
+  - family-names: Huber
+    given-names: Laurentius
+    orcid: https://orcid.org/0000-0002-3291-2202
+  - family-names: Wagstyl
+    given-names: Konrad
+    orcid: https://orcid.org/0000-0003-3439-5808
+  - family-names: Goebel
+    given-names: Rainer
+    orcid: https://orcid.org/0000-0003-1780-2467
+  - family-names: Benedikt
+    given-names: Poser
+    orcid: https://orcid.org/0000-0001-8190-4367
+  - family-names: Kay
+    given-names: Kendrick
+    orcid: https://orcid.org/0000-0001-6604-9155
+  - family-names: Ivanov
+    given-names: Dimo
+    orcid: https://orcid.org/0000-0001-9387-5823
+  doi: "10.1101/2021.11.25.470023"
+  journal: "BioRxiv"
+  month: 10
+  title: "Mesoscopic in vivo human T2* dataset acquired using quantitative MRI at 7 Tesla"
+  year: 2022
