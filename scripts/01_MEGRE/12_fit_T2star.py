@@ -37,12 +37,6 @@ design[:, 0] *= -TEs
 betas = np.linalg.lstsq(design, data.T, rcond=None)[0]
 data = None
 
-np.max(betas[0])
-np.min(betas[0])
-
-np.max(betas[1])
-np.min(betas[1])
-
 T2_star = np.reciprocal(betas[0], where=betas[0] != 0)
 
 T2_star = np.abs(T2_star)
